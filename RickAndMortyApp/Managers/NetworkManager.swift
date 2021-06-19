@@ -14,6 +14,8 @@ class NetworkManager {
     
     let baseUrl: String = "https://rickandmortyapi.com/api/"
     
+    let imageCache = NSCache<NSString, UIImage>()
+    
     private init() {}
     
     public func getData(from endpoint: String, _ completion: @escaping (Result<Data, Error>) -> Void) {
@@ -35,6 +37,28 @@ class NetworkManager {
                 completion(.failure(APIError.invalidResponse))
             }
         }.resume()
+    }
+    
+    public func downloadImage(from urlString: String, _ completion: @escaping (UIImage?) -> Void) {
+        let imageCacheKey: NSString = .init(string: urlString)
+        
+        if let image = imageCache.object(forKey: imageCacheKey) {
+            completion(image)
+        } else if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard error == nil else { completion(nil); return }
+                guard let data = data else { completion(nil); return }
+                
+                if let image = UIImage(data: data) {
+                    self.imageCache.setObject(image, forKey: imageCacheKey)
+                    completion(image)
+                } else {
+                    completion(nil)
+                }
+            }.resume()
+        } else {
+            completion(nil)
+        }
     }
     
     private func isStatusCodeValid(_ response: HTTPURLResponse?) -> Bool {
