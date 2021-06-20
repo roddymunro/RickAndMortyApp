@@ -42,7 +42,7 @@ class CharacterCell: UICollectionViewCell {
         ])
     }
     
-    func set(character: Character) {
+    public func set(character: Character) {
         imageView.downloadImage(from: character.image)
         nameLabel.text = character.name
     }
