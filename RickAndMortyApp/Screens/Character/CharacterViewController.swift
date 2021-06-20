@@ -181,17 +181,37 @@ class CharacterViewController: UIViewController {
         typeDetail.set(detail: character.type)
         genderDetail.set(detail: character.gender)
         originDetail.set(detail: character.origin.name)
-//        originDetail.detailButton.addTarget(self, action: #selector(openLocation), for: .touchUpInside)
+        originDetail.detailButton.addTarget(self, action: #selector(openOrigin), for: .touchUpInside)
         
         locationDetail.set(detail: character.location.name)
-//        locationDetail.detailButton.addTarget(self, action: #selector(openLocation), for: .touchUpInside)
+        locationDetail.detailButton.addTarget(self, action: #selector(openLocation), for: .touchUpInside)
         
         episodesHeaderLabel.text = NSLocalizedString(
             "header.character.episodes", comment: "The header label for the character's episodes section.")
         
     }
     
+    @objc private func openOrigin() {
+        repositories.location.fetchLocation(by: character.origin.url) { location in
+            if let location = location {
+                self.present(location)
+            }
+        }
+    }
+    
     @objc private func openLocation() {
-        
+        repositories.location.fetchLocation(by: character.location.url) { location in
+            if let location = location {
+                self.present(location)
+            }
+        }
+    }
+    
+    private func present(_ location: Location) {
+        DispatchQueue.main.async {
+            let locationViewController = LocationViewController(location: location, repositories: self.repositories)
+            let navigationController = UINavigationController(rootViewController: locationViewController)
+            self.present(navigationController, animated: true)
+        }
     }
 }
