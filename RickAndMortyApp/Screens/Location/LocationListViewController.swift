@@ -26,7 +26,7 @@ class LocationListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureViewController()
-        repositories.location.fetchLocations(onFetch: updateData)
+        fetchData(fetchType: .nextPage)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +51,19 @@ class LocationListViewController: UIViewController {
             "navigationTitle.locations",
             comment: "The navigation title for the Locations screen."
         )
+    }
+    
+    private func fetchData(fetchType: FetchType) {
+        let fetchMethod = fetchType == .nextPage ? repositories.location.fetchLocations : repositories.location.refresh
+        
+        fetchMethod { result in
+            switch result {
+                case .success:
+                    self.updateData()
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchLocations, error: error))
+            }
+        }
     }
     
     private func updateData() {
@@ -87,11 +100,11 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         let height = scrollView.frame.size.height
 
         if offsetY < -10 {
-            repositories.location.refresh(onFetch: updateData)
+            fetchData(fetchType: .refresh)
         } else if offsetY > contentHeight - height {
             guard repositories.location.nextPageAvailable else { return }
-
-            repositories.location.fetchLocations(onFetch: updateData)
+            
+            fetchData(fetchType: .nextPage)
         }
     }
 }

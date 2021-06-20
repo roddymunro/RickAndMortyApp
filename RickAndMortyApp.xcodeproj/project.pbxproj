@@ -52,6 +52,7 @@
 		79519BA4267FCE0100022964 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BA3267FCE0100022964 /* ErrorModel.swift */; };
 		79519BA6267FD86F00022964 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BA5267FD86F00022964 /* UIViewController+Ext.swift */; };
 		79519BA8267FDBE300022964 /* AlertTitles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BA7267FDBE300022964 /* AlertTitles.swift */; };
+		79519BAA267FDF3600022964 /* FetchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BA9267FDF3600022964 /* FetchType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		79519BA3267FCE0100022964 /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		79519BA5267FD86F00022964 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		79519BA7267FDBE300022964 /* AlertTitles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertTitles.swift; sourceTree = "<group>"; };
+		79519BA9267FDF3600022964 /* FetchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				79519BA7267FDBE300022964 /* AlertTitles.swift */,
+				79519BA9267FDF3600022964 /* FetchType.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				79519B97267D7DEC00022964 /* TitleLabel.swift in Sources */,
 				7947E640267E642E0019F6A2 /* EpisodeCell.swift in Sources */,
 				7947E649267E8C2E0019F6A2 /* HeaderLabel.swift in Sources */,
+				79519BAA267FDF3600022964 /* FetchType.swift in Sources */,
 				79519B4B267D5A6B00022964 /* CharacterListViewController.swift in Sources */,
 				79519B78267D604800022964 /* AppEpisodeAPI.swift in Sources */,
 				79519B5F267D5BE400022964 /* CharacterAPI.swift in Sources */,

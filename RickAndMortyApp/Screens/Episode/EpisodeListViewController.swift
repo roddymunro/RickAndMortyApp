@@ -26,7 +26,7 @@ class EpisodeListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureViewController()
-        repositories.episode.fetchEpisodes(onFetch: updateData)
+        fetchData(fetchType: .nextPage)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +51,19 @@ class EpisodeListViewController: UIViewController {
             "navigationTitle.episodes",
             comment: "The navigation title for the Episodes screen."
         )
+    }
+    
+    private func fetchData(fetchType: FetchType) {
+        let fetchMethod = fetchType == .nextPage ? repositories.episode.fetchEpisodes : repositories.episode.refresh
+        
+        fetchMethod { result in
+            switch result {
+                case .success:
+                    self.updateData()
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchEpisode, error: error))
+            }
+        }
     }
     
     private func updateData() {
@@ -87,11 +100,11 @@ extension EpisodeListViewController: UITableViewDelegate, UITableViewDataSource 
         let height = scrollView.frame.size.height
 
         if offsetY < -10 {
-            repositories.episode.refresh(onFetch: updateData)
+            fetchData(fetchType: .refresh)
         } else if offsetY > contentHeight - height {
             guard repositories.episode.nextPageAvailable else { return }
 
-            repositories.episode.fetchEpisodes(onFetch: updateData)
+            fetchData(fetchType: .nextPage)
         }
     }
 }

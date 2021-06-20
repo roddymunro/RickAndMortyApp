@@ -27,7 +27,7 @@ final class EpisodeRepository {
         self.api = api
     }
     
-    public func fetchEpisodes(onFetch: @escaping ()->()) {
+    public func fetchEpisodes(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
             api.getEpisodes(page: nextPage) { result in
                 switch result {
@@ -40,11 +40,14 @@ final class EpisodeRepository {
                         }
                         self.data.sort(by: { $0.id < $1.id })
                         self.nextPage += 1
-                        onFetch()
+                        completion(.success("Success"))
                     case .failure(let error):
                         print(error.localizedDescription)
+                        completion(.failure(error))
                 }
             }
+        } else {
+            completion(.success("No Pages Left"))
         }
     }
     
@@ -66,11 +69,13 @@ final class EpisodeRepository {
         }
     }
     
-    public func refresh(onFetch: @escaping ()->()) {
+    public func refresh(_ completion: @escaping (Result<String, Error>) -> Void) {
         nextPage = 1
         data.removeAll()
         paginationInfo = nil
-        fetchEpisodes(onFetch: onFetch)
+        fetchEpisodes { result in
+            completion(result)
+        }
     }
     
     private func getEpisodeByUrl(urlString: String) -> Episode? {

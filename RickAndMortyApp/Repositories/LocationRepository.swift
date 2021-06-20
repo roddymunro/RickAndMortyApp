@@ -27,7 +27,7 @@ final class LocationRepository {
         self.api = api
     }
     
-    public func fetchLocations(onFetch: @escaping ()->()) {
+    public func fetchLocations(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
             api.getLocations(page: nextPage) { result in
                 switch result {
@@ -40,11 +40,14 @@ final class LocationRepository {
                         }
                         self.data.sort(by: { $0.id < $1.id })
                         self.nextPage += 1
-                        onFetch()
+                        completion(.success("Success"))
                     case .failure(let error):
                         print(error.localizedDescription)
+                        completion(.failure(error))
                 }
             }
+        } else {
+            completion(.success("No Pages Left"))
         }
     }
     
@@ -66,11 +69,13 @@ final class LocationRepository {
         }
     }
     
-    public func refresh(onFetch: @escaping ()->()) {
+    public func refresh(_ completion: @escaping (Result<String, Error>) -> Void) {
         nextPage = 1
         data.removeAll()
         paginationInfo = nil
-        fetchLocations(onFetch: onFetch)
+        fetchLocations { result in
+            completion(result)
+        }
     }
     
     private func getLocationByUrl(urlString: String) -> Location? {

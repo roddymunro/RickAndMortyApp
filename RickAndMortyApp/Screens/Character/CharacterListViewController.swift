@@ -29,8 +29,8 @@ class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         configureViewController()
-        repositories.character.fetchCharacters(onFetch: updateData)
         configureDataSource()
+        fetchData(fetchType: .nextPage)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +72,19 @@ class CharacterListViewController: UIViewController {
             self.dataSource.apply(snapshots, animatingDifferences: true)
         }
     }
+    
+    private func fetchData(fetchType: FetchType) {
+        let fetchMethod = fetchType == .nextPage ? repositories.character.fetchCharacters : repositories.character.refresh
+        
+        fetchMethod { result in
+            switch result {
+                case .success:
+                    self.updateData()
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchCharacters, error: error))
+            }
+        }
+    }
 }
 
 extension CharacterListViewController: UICollectionViewDelegate {
@@ -81,11 +94,11 @@ extension CharacterListViewController: UICollectionViewDelegate {
         let height = scrollView.frame.size.height
         
         if offsetY < -10 {
-            repositories.character.refresh(onFetch: updateData)
+            fetchData(fetchType: .refresh)
         } else if offsetY > contentHeight - height {
             guard repositories.character.nextPageAvailable else { return }
             
-            repositories.character.fetchCharacters(onFetch: updateData)
+            fetchData(fetchType: .nextPage)
         }
     }
     

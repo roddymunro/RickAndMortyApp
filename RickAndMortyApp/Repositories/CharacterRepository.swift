@@ -27,7 +27,7 @@ final class CharacterRepository {
         self.api = api
     }
     
-    public func fetchCharacters(onFetch: @escaping ()->()) {
+    public func fetchCharacters(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
             api.getCharacters(page: nextPage) { result in
                 switch result {
@@ -40,11 +40,14 @@ final class CharacterRepository {
                         }
                         self.data.sort(by: { $0.id < $1.id })
                         self.nextPage += 1
-                        onFetch()
+                        completion(.success("Success"))
                     case .failure(let error):
                         print(error.localizedDescription)
+                        completion(.failure(error))
                 }
             }
+        } else {
+            completion(.success("No Pages Left"))
         }
     }
     
@@ -66,11 +69,13 @@ final class CharacterRepository {
         }
     }
     
-    public func refresh(onFetch: @escaping ()->()) {
+    public func refresh(_ completion: @escaping (Result<String, Error>) -> Void) {
         nextPage = 1
         data.removeAll()
         paginationInfo = nil
-        fetchCharacters(onFetch: onFetch)
+        fetchCharacters { result in
+            completion(result)
+        }
     }
     
     private func getCharacterByUrl(urlString: String) -> Character? {
