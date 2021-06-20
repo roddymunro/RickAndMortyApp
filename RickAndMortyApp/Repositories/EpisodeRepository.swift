@@ -27,7 +27,7 @@ final class EpisodeRepository {
         self.api = api
     }
     
-    public func fetchEpisodes() {
+    public func fetchEpisodes(onFetch: @escaping ()->()) {
         if nextPageAvailable {
             api.getEpisodes(page: nextPage) { result in
                 switch result {
@@ -35,6 +35,7 @@ final class EpisodeRepository {
                         self.paginationInfo = response.info
                         self.episodes.append(contentsOf: response.results)
                         self.nextPage += 1
+                        onFetch()
                     case .failure(let error):
                         print(error.localizedDescription)
                 }
@@ -42,4 +43,10 @@ final class EpisodeRepository {
         }
     }
     
+    public func refresh(onFetch: @escaping ()->()) {
+        nextPage = 1
+        episodes.removeAll()
+        paginationInfo = nil
+        fetchEpisodes(onFetch: onFetch)
+    }
 }
