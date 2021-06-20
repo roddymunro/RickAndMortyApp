@@ -34,3 +34,10 @@
 "label.location.dimension" = "Dimension";
 "header.location.locationDetails" = "Location Details";
 "header.location.residents" = "Residents";
+
+"alert.character.fetch" = "Couldn't Fetch Character";
+"alert.episode.fetch" = "Couldn't Fetch Episode";
+"alert.location.fetch" = "Couldn't Fetch Location";
+"alert.character.fetchAll" = "Couldn't Fetch Characters";
+"alert.episode.fetchAll" = "Couldn't Fetch Episodes";
+"alert.location.fetchAll" = "Couldn't Fetch Locations";

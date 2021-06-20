@@ -194,17 +194,23 @@ class CharacterViewController: UIViewController {
     }
     
     @objc private func openOrigin() {
-        repositories.location.fetchLocation(by: character.origin.url) { location in
-            if let location = location {
-                self.present(location)
+        repositories.location.fetchLocation(by: character.origin.url) { result in
+            switch result {
+                case .success(let location):
+                    self.present(location)
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchLocation, error: error))
             }
         }
     }
     
     @objc private func openLocation() {
-        repositories.location.fetchLocation(by: character.location.url) { location in
-            if let location = location {
-                self.present(location)
+        repositories.location.fetchLocation(by: character.location.url) { result in
+            switch result {
+                case .success(let location):
+                    self.present(location)
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchLocation, error: error))
             }
         }
     }
@@ -212,9 +218,12 @@ class CharacterViewController: UIViewController {
     @objc private func openEpisode(sender: UIButton) {
         let episodeUrlString = character.episode[sender.tag]
         
-        repositories.episode.fetchEpisode(by: episodeUrlString) { episode in
-            if let episode = episode {
-                self.present(episode)
+        repositories.episode.fetchEpisode(by: episodeUrlString) { result in
+            switch result {
+                case .success(let episode):
+                    self.present(episode)
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchEpisode, error: error))
             }
         }
     }

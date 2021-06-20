@@ -48,19 +48,19 @@ final class LocationRepository {
         }
     }
     
-    public func fetchLocation(by urlString: String, _ completion: @escaping (Location?) -> Void) {
+    public func fetchLocation(by urlString: String, _ completion: @escaping (Result<Location, Error>) -> Void) {
         if let location = getLocationByUrl(urlString: urlString) {
-            completion(location)
+            completion(.success(location))
         } else {
             api.getLocation(using: urlString) { result in
                 switch result {
                     case .success(let location):
                         self.data.append(location)
                         self.data.sort(by: { $0.id < $1.id })
-                        completion(location)
+                        completion(.success(location))
                     case .failure(let error):
                         print(error.localizedDescription)
-                        completion(nil)
+                        completion(.failure(error))
                 }
             }
         }

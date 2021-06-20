@@ -48,19 +48,19 @@ final class EpisodeRepository {
         }
     }
     
-    public func fetchEpisode(by urlString: String, _ completion: @escaping (Episode?) -> Void) {
+    public func fetchEpisode(by urlString: String, _ completion: @escaping (Result<Episode, Error>) -> Void) {
         if let episode = getEpisodeByUrl(urlString: urlString) {
-            completion(episode)
+            completion(.success(episode))
         } else {
             api.getEpisode(using: urlString) { result in
                 switch result {
                     case .success(let episode):
                         self.data.append(episode)
                         self.data.sort(by: { $0.id < $1.id })
-                        completion(episode)
+                        completion(.success(episode))
                     case .failure(let error):
                         print(error.localizedDescription)
-                        completion(nil)
+                        completion(.failure(error))
                 }
             }
         }

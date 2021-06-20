@@ -22,8 +22,8 @@ class CharacterImageView: UIImageView {
         image = UIImage(named: "characterImagePlaceholder")
         layer.masksToBounds = false
         layer.cornerRadius = frame.height / 2
-        clipsToBounds = true
         contentMode = .scaleAspectFill
+        clipsToBounds = true
         translatesAutoresizingMaskIntoConstraints = false
     }
     

@@ -48,19 +48,19 @@ final class CharacterRepository {
         }
     }
     
-    public func fetchCharacter(by urlString: String, _ completion: @escaping (Character?) -> Void) {
+    public func fetchCharacter(by urlString: String, _ completion: @escaping (Result<Character, Error>) -> Void) {
         if let character = getCharacterByUrl(urlString: urlString) {
-            completion(character)
+            completion(.success(character))
         } else {
             api.getCharacter(using: urlString) { result in
                 switch result {
                     case .success(let character):
                         self.data.append(character)
                         self.data.sort(by: { $0.id < $1.id })
-                        completion(character)
+                        completion(.success(character))
                     case .failure(let error):
                         print(error.localizedDescription)
-                        completion(nil)
+                        completion(.failure(error))
                 }
             }
         }

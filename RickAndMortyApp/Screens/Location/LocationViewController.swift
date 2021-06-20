@@ -161,9 +161,12 @@ class LocationViewController: UIViewController {
     @objc private func openCharacter(sender: UIButton) {
         let characterUrlString = location.residents[sender.tag]
         
-        repositories.character.fetchCharacter(by: characterUrlString) { character in
-            if let character = character {
-                self.present(character)
+        repositories.character.fetchCharacter(by: characterUrlString) { result in
+            switch result {
+                case .success(let character):
+                    self.present(character)
+                case .failure(let error):
+                    self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchCharacter, error: error))
             }
         }
     }

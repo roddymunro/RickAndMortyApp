@@ -34,3 +34,10 @@
 "label.location.dimension" = "Dimension";
 "header.location.locationDetails" = "Détails de l'emplacement";
 "header.location.residents" = "Résidentes";
+
+"alert.character.fetch" = "Impossible de récupérer le personnage";
+"alert.episode.fetch" = "Impossible de récupérer l'épisode";
+"alert.location.fetch" = "Impossible de récupérer l'emplacement";
+"alert.character.fetchAll" = "Impossible de récupérer les caractères";
+"alert.episode.fetchAll" = "Impossible de récupérer les épisodes";
+"alert.location.fetchAll" = "Impossible de récupérer les emplacements";
