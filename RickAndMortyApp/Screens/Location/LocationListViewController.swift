@@ -9,13 +9,13 @@ import UIKit
 
 class LocationListViewController: UIViewController {
     
-    private var repository: LocationRepository!
+    private var repositories: Repositories
     
     var tableView: UITableView!
     
-    init(repository: LocationRepository) {
+    init(repositories: Repositories) {
+        self.repositories = repositories
         super.init(nibName: nil, bundle: nil)
-        self.repository = repository
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +26,7 @@ class LocationListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureViewController()
-        repository.fetchLocations(onFetch: updateData)
+        repositories.location.fetchLocations(onFetch: updateData)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,20 +62,20 @@ class LocationListViewController: UIViewController {
 
 extension LocationListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        repository.locations.count
+        repositories.location.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = LocationCell(style: .subtitle, reuseIdentifier: LocationCell.reuseId)
 
-        cell.set(location: repository.locations[indexPath.row])
+        cell.set(location: repositories.location.data[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let location = repository.locations[indexPath.item]
+        let location = repositories.location.data[indexPath.item]
         
-        let locationViewController = LocationViewController(location: location, repository: repository)
+        let locationViewController = LocationViewController(location: location, repositories: repositories)
         let navigationController = UINavigationController(rootViewController: locationViewController)
         present(navigationController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -87,11 +87,11 @@ extension LocationListViewController: UITableViewDelegate, UITableViewDataSource
         let height = scrollView.frame.size.height
 
         if offsetY < -10 {
-            repository.refresh(onFetch: updateData)
+            repositories.location.refresh(onFetch: updateData)
         } else if offsetY > contentHeight - height {
-            guard repository.nextPageAvailable else { return }
+            guard repositories.location.nextPageAvailable else { return }
 
-            repository.fetchLocations(onFetch: updateData)
+            repositories.location.fetchLocations(onFetch: updateData)
         }
     }
 }

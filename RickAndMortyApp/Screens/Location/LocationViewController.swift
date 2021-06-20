@@ -10,7 +10,7 @@ import UIKit
 class LocationViewController: UIViewController {
     
     private var location: Location!
-    private var repository: LocationRepository!
+    private var repositories: Repositories
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -30,10 +30,10 @@ class LocationViewController: UIViewController {
     
     var closeButton: UIBarButtonItem!
     
-    init(location: Location, repository: LocationRepository) {
-        super.init(nibName: nil, bundle: nil)
+    init(location: Location, repositories: Repositories) {
         self.location = location
-        self.repository = repository
+        self.repositories = repositories
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {

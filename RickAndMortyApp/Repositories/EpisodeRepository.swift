@@ -12,7 +12,7 @@ final class EpisodeRepository {
     private let api: EpisodeAPI
     
     private var paginationInfo: Info?
-    private(set) var episodes: [Episode] = []
+    private(set) var data: [Episode] = []
     private var nextPage: Int = 1
     
     public var nextPageAvailable: Bool {
@@ -33,7 +33,12 @@ final class EpisodeRepository {
                 switch result {
                     case .success(let response):
                         self.paginationInfo = response.info
-                        self.episodes.append(contentsOf: response.results)
+                        response.results.forEach { episode in
+                            if !self.data.contains(episode) {
+                                self.data.append(episode)
+                            }
+                        }
+                        self.data.sort(by: { $0.id < $1.id })
                         self.nextPage += 1
                         onFetch()
                     case .failure(let error):
@@ -43,10 +48,32 @@ final class EpisodeRepository {
         }
     }
     
+    public func fetchEpisode(by urlString: String, _ completion: @escaping (Episode?) -> Void) {
+        if let episode = getEpisodeByUrl(urlString: urlString) {
+            completion(episode)
+        } else {
+            api.getEpisode(using: urlString) { result in
+                switch result {
+                    case .success(let episode):
+                        self.data.append(episode)
+                        self.data.sort(by: { $0.id < $1.id })
+                        completion(episode)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                        completion(nil)
+                }
+            }
+        }
+    }
+    
     public func refresh(onFetch: @escaping ()->()) {
         nextPage = 1
-        episodes.removeAll()
+        data.removeAll()
         paginationInfo = nil
         fetchEpisodes(onFetch: onFetch)
+    }
+    
+    private func getEpisodeByUrl(urlString: String) -> Episode? {
+        data.first { $0.url == urlString }
     }
 }

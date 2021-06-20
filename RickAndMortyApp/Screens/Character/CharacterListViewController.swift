@@ -11,14 +11,14 @@ class CharacterListViewController: UIViewController {
 
     enum Section { case main }
 
-    private var repository: CharacterRepository!
+    private var repositories: Repositories
 
     var collectionView: UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<Section, Character>!
     
-    init(repository: CharacterRepository) {
+    init(repositories: Repositories) {
+        self.repositories = repositories
         super.init(nibName: nil, bundle: nil)
-        self.repository = repository
     }
     
     required init?(coder: NSCoder) {
@@ -29,7 +29,7 @@ class CharacterListViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         configureViewController()
-        repository.fetchCharacters(onFetch: updateData)
+        repositories.character.fetchCharacters(onFetch: updateData)
         configureDataSource()
     }
 
@@ -67,7 +67,7 @@ class CharacterListViewController: UIViewController {
     private func updateData() {
         var snapshots = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshots.appendSections([.main])
-        snapshots.appendItems(repository.characters)
+        snapshots.appendItems(repositories.character.data)
         DispatchQueue.main.async {
             self.dataSource.apply(snapshots, animatingDifferences: true)
         }
@@ -81,18 +81,18 @@ extension CharacterListViewController: UICollectionViewDelegate {
         let height = scrollView.frame.size.height
         
         if offsetY < -10 {
-            repository.refresh(onFetch: updateData)
+            repositories.character.refresh(onFetch: updateData)
         } else if offsetY > contentHeight - height {
-            guard repository.nextPageAvailable else { return }
+            guard repositories.character.nextPageAvailable else { return }
             
-            repository.fetchCharacters(onFetch: updateData)
+            repositories.character.fetchCharacters(onFetch: updateData)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let character = repository.characters[indexPath.item]
+        let character = repositories.character.data[indexPath.item]
         
-        let characterViewController = CharacterViewController(character: character, repository: repository)
+        let characterViewController = CharacterViewController(character: character, repositories: repositories)
         let navigationController = UINavigationController(rootViewController: characterViewController)
         present(navigationController, animated: true)
         collectionView.deselectItem(at: indexPath, animated: true)

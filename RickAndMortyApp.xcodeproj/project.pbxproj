@@ -49,6 +49,7 @@
 		79519B97267D7DEC00022964 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B96267D7DEC00022964 /* TitleLabel.swift */; };
 		79519B9A267FBB4700022964 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79519B9C267FBB4700022964 /* Localizable.strings */; };
 		79519B9E267FBD8700022964 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B9D267FBD8700022964 /* ErrorModel.swift */; };
+		79519BA2267FCA2200022964 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BA1267FCA2200022964 /* Repositories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		79519B9D267FBD8700022964 /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		79519B9F267FBDDD00022964 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		79519BA0267FBDDD00022964 /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		79519BA1267FCA2200022964 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 		79519B6C267D5F1700022964 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				79519BA1267FCA2200022964 /* Repositories.swift */,
 				79519B6D267D5F2700022964 /* CharacterRepository.swift */,
 				79519B6F267D5F2F00022964 /* EpisodeRepository.swift */,
 				79519B71267D5F3600022964 /* LocationRepository.swift */,
@@ -421,6 +424,7 @@
 				7947E64D267E94CE0019F6A2 /* DetailButtonView.swift in Sources */,
 				79519B64267D5C6600022964 /* Episode.swift in Sources */,
 				79519B7A267D606000022964 /* AppLocationAPI.swift in Sources */,
+				79519BA2267FCA2200022964 /* Repositories.swift in Sources */,
 				7947E655267EBC3D0019F6A2 /* EpisodeViewController.swift in Sources */,
 				79519B6E267D5F2700022964 /* CharacterRepository.swift in Sources */,
 				7947E650267E997C0019F6A2 /* OpenButton.swift in Sources */,

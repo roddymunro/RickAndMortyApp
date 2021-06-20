@@ -10,7 +10,8 @@ import UIKit
 class CharacterViewController: UIViewController {
     
     private var character: Character!
-    private var repository: CharacterRepository!
+    
+    private var repositories: Repositories
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -40,10 +41,10 @@ class CharacterViewController: UIViewController {
     
     var closeButton: UIBarButtonItem!
     
-    init(character: Character, repository: CharacterRepository) {
-        super.init(nibName: nil, bundle: nil)
+    init(character: Character, repositories: Repositories) {
         self.character = character
-        self.repository = repository
+        self.repositories = repositories
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {

@@ -9,9 +9,7 @@ import UIKit
 
 class RootTabBarController: UITabBarController {
     
-    private var characterRepository: CharacterRepository = .init()
-    private var episodeRepository: EpisodeRepository = .init()
-    private var locationRepository: LocationRepository = .init()
+    private var repositories: Repositories = .init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +22,7 @@ class RootTabBarController: UITabBarController {
     }
     
     private func createCharactersNavigationController() -> UINavigationController {
-        let charactersViewController = CharacterListViewController(repository: characterRepository)
+        let charactersViewController = CharacterListViewController(repositories: repositories)
         
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let characterIcon = UIImage(systemName: "person.3", withConfiguration: iconConfig)
@@ -34,7 +32,7 @@ class RootTabBarController: UITabBarController {
     }
     
     private func createEpisodesNavigationController() -> UINavigationController {
-        let episodesViewController = EpisodeListViewController(repository: episodeRepository)
+        let episodesViewController = EpisodeListViewController(repositories: repositories)
         
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let episodeIcon = UIImage(systemName: "play.rectangle", withConfiguration: iconConfig)
@@ -44,7 +42,7 @@ class RootTabBarController: UITabBarController {
     }
     
     private func createLocationsNavigationController() -> UINavigationController {
-        let locationsViewController = LocationListViewController(repository: locationRepository)
+        let locationsViewController = LocationListViewController(repositories: repositories)
         
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let locationIcon = UIImage(systemName: "globe", withConfiguration: iconConfig)

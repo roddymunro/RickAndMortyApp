@@ -10,7 +10,8 @@ import UIKit
 class EpisodeViewController: UIViewController {
     
     private var episode: Episode!
-    private var repository: EpisodeRepository!
+    
+    private var repositories: Repositories
     
     let scrollView = UIScrollView()
     let contentView = UIView()
@@ -30,10 +31,10 @@ class EpisodeViewController: UIViewController {
     
     var closeButton: UIBarButtonItem!
     
-    init(episode: Episode, repository: EpisodeRepository) {
-        super.init(nibName: nil, bundle: nil)
+    init(episode: Episode, repositories: Repositories) {
         self.episode = episode
-        self.repository = repository
+        self.repositories = repositories
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {

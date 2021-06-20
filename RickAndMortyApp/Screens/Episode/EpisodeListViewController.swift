@@ -9,13 +9,13 @@ import UIKit
 
 class EpisodeListViewController: UIViewController {
     
-    private var repository: EpisodeRepository!
+    private var repositories: Repositories
     
     var tableView: UITableView!
     
-    init(repository: EpisodeRepository) {
+    init(repositories: Repositories) {
+        self.repositories = repositories
         super.init(nibName: nil, bundle: nil)
-        self.repository = repository
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +26,7 @@ class EpisodeListViewController: UIViewController {
         super.viewDidLoad()
         configureTableView()
         configureViewController()
-        repository.fetchEpisodes(onFetch: updateData)
+        repositories.episode.fetchEpisodes(onFetch: updateData)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,20 +62,20 @@ class EpisodeListViewController: UIViewController {
 
 extension EpisodeListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        repository.episodes.count
+        repositories.episode.data.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = EpisodeCell(style: .subtitle, reuseIdentifier: EpisodeCell.reuseId)
 
-        cell.set(episode: repository.episodes[indexPath.row])
+        cell.set(episode: repositories.episode.data[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let episode = repository.episodes[indexPath.item]
+        let episode = repositories.episode.data[indexPath.item]
         
-        let episodeViewController = EpisodeViewController(episode: episode, repository: repository)
+        let episodeViewController = EpisodeViewController(episode: episode, repositories: repositories)
         let navigationController = UINavigationController(rootViewController: episodeViewController)
         present(navigationController, animated: true)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -87,11 +87,11 @@ extension EpisodeListViewController: UITableViewDelegate, UITableViewDataSource 
         let height = scrollView.frame.size.height
 
         if offsetY < -10 {
-            repository.refresh(onFetch: updateData)
+            repositories.episode.refresh(onFetch: updateData)
         } else if offsetY > contentHeight - height {
-            guard repository.nextPageAvailable else { return }
+            guard repositories.episode.nextPageAvailable else { return }
 
-            repository.fetchEpisodes(onFetch: updateData)
+            repositories.episode.fetchEpisodes(onFetch: updateData)
         }
     }
 }
