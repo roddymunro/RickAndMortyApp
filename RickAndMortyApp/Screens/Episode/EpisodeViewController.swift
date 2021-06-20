@@ -1,0 +1,153 @@
+//
+//  EpisodeViewController.swift
+//  RickAndMortyApp
+//
+//  Created by Roddy Munro on 19/06/2021.
+//
+
+import UIKit
+
+class EpisodeViewController: UIViewController {
+    
+    private var episode: Episode!
+    private var repository: EpisodeRepository!
+    
+    let scrollView = UIScrollView()
+    let contentView = UIView()
+    
+    let detailsCard = CardView()
+    let detailsHeaderLabel = TitleLabel(textAlignment: .left)
+    let nameDetail = DetailView(title: "Name")
+    let airDateDetail = DetailView(title: "Air Date")
+    let episodeDetail = DetailView(title: "Episode")
+    
+    let charactersCard = CardView()
+    let charactersHeaderLabel = TitleLabel(textAlignment: .left)
+    var characterButtons: [OpenButton] = []
+    
+    var closeButton: UIBarButtonItem!
+    
+    init(episode: Episode, repository: EpisodeRepository) {
+        super.init(nibName: nil, bundle: nil)
+        self.episode = episode
+        self.repository = repository
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureViewController()
+        configureScrollView()
+        layoutDetailsCard()
+        layoutCharactersCard()
+        configureUIElements()
+    }
+    
+    @objc func dismissViewController() {
+        dismiss(animated: true)
+    }
+    
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(dismissViewController))
+        
+        navigationItem.rightBarButtonItem = closeButton
+        title = episode.name
+    }
+    
+    private func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        scrollView.pinToEdges(of: view)
+        contentView.pinToEdges(of: scrollView)
+        
+        NSLayoutConstraint.activate([
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
+    private func layoutDetailsCard() {
+        contentView.addSubview(detailsHeaderLabel, detailsCard)
+        
+        let padding: CGFloat = 16
+        
+        NSLayoutConstraint.activate([
+            detailsHeaderLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            detailsHeaderLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 24),
+            detailsHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            detailsHeaderLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            
+            detailsCard.topAnchor.constraint(equalTo: detailsHeaderLabel.bottomAnchor, constant: 4),
+            detailsCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            detailsCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
+        ])
+        
+        var previousBottomAnchor = detailsCard.topAnchor
+        
+        for view in [nameDetail, airDateDetail, episodeDetail] {
+            detailsCard.addSubview(view)
+            
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: previousBottomAnchor, constant: padding),
+                view.leadingAnchor.constraint(equalTo: detailsCard.leadingAnchor, constant: padding),
+                view.trailingAnchor.constraint(equalTo: detailsCard.trailingAnchor, constant: -padding),
+                view.heightAnchor.constraint(greaterThanOrEqualToConstant: 24)
+            ])
+            
+            previousBottomAnchor = view.bottomAnchor
+        }
+        
+        NSLayoutConstraint.activate([
+            previousBottomAnchor.constraint(equalTo: detailsCard.bottomAnchor, constant: -padding)
+        ])
+    }
+    
+    private func layoutCharactersCard() {
+        contentView.addSubview(charactersHeaderLabel, charactersCard)
+        
+        let padding: CGFloat = 16
+        
+        NSLayoutConstraint.activate([
+            charactersHeaderLabel.topAnchor.constraint(equalTo: detailsCard.bottomAnchor, constant: padding),
+            charactersHeaderLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            charactersHeaderLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            
+            charactersCard.topAnchor.constraint(equalTo: charactersHeaderLabel.bottomAnchor, constant: 4),
+            charactersCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            charactersCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            charactersCard.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding)
+        ])
+        
+        var previousBottomAnchor = charactersCard.topAnchor
+
+        for character in episode.characters {
+            let characterButton: OpenButton = .init(title: character)
+            characterButtons.append(characterButton)
+            charactersCard.addSubview(characterButton)
+
+            NSLayoutConstraint.activate([
+                characterButton.topAnchor.constraint(equalTo: previousBottomAnchor, constant: padding),
+                characterButton.leadingAnchor.constraint(equalTo: charactersCard.leadingAnchor, constant: padding),
+                characterButton.trailingAnchor.constraint(equalTo: charactersCard.trailingAnchor, constant: -padding)
+            ])
+
+            previousBottomAnchor = characterButton.bottomAnchor
+        }
+        
+        NSLayoutConstraint.activate([
+            previousBottomAnchor.constraint(equalTo: charactersCard.bottomAnchor, constant: -padding)
+        ])
+    }
+    
+    private func configureUIElements() {
+        detailsHeaderLabel.text = "Episode Details"
+        nameDetail.set(detail: episode.name)
+        airDateDetail.set(detail: episode.airDate)
+        episodeDetail.set(detail: episode.episode)
+        
+        charactersHeaderLabel.text = "Characters"
+    }
+}
