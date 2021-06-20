@@ -7,24 +7,7 @@
 
 import UIKit
 
-class NetworkImageView: UIImageView {
-    
-    public func downloadImage(from urlString: String) {
-        NetworkManager.shared.downloadImage(from: urlString) { [weak self] image in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                self.image = image
-                self.layer.masksToBounds = false
-                self.layer.cornerRadius = self.frame.height / 2
-                self.contentMode = .scaleAspectFill
-                self.clipsToBounds = true
-            }
-        }
-    }
-}
-
-class CharacterImageView: NetworkImageView {
+class CharacterImageView: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,5 +25,19 @@ class CharacterImageView: NetworkImageView {
         clipsToBounds = true
         contentMode = .scaleAspectFill
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    public func downloadImage(from urlString: String) {
+        NetworkManager.shared.downloadImage(from: urlString) { [weak self] image in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.image = image
+                self.layer.masksToBounds = false
+                self.layer.cornerRadius = self.frame.height / 2
+                self.contentMode = .scaleAspectFill
+                self.clipsToBounds = true
+            }
+        }
     }
 }
