@@ -15,6 +15,7 @@ class JSONManager {
     
     public func decode<T: Codable>(data: Data) throws -> T {
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try decoder.decode(T.self, from: data)
     }
 }
