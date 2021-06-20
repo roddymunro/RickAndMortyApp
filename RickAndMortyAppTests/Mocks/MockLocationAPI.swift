@@ -10,44 +10,31 @@ import UIKit
 
 final class MockLocationAPI: LocationAPI {
     
-    func getLocations(page: Int, _ completion: @escaping (Result<PaginatedResponse<Location>, Error>) -> Void) {
+    func getLocations(page: Int, _ completion: @escaping (Result<Data, Error>) -> Void) {
         if page == -1 {
             completion(.failure(APIError.invalidUrl))
         } else {
-            let info: Info = .init(count: 108, pages: 6, next: "https://rickandmortyapi.com/api/location?page=\(page+1)", prev: nil)
-            let locations: [Location] = Range(1...20).compactMap {
-                .init(
-                    id: $0,
-                    name: "Earth",
-                    type: "Planet",
-                    dimension: "Dimension C-137",
-                    residents: [
-                        "https://rickandmortyapi.com/api/character/1",
-                        "https://rickandmortyapi.com/api/character/2"
-                    ],
-                    url: "https://rickandmortyapi.com/api/location/1",
-                    created: "2017-11-10T12:42:04.162Z"
-                )
+            if let jsonPath = Bundle(for: type(of: self)).path(forResource: "locations", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: jsonPath), options: .mappedIfSafe)
+                    completion(.success(data))
+                } catch {
+                    completion(.failure(error))
+                }
             }
-            completion(.success(.init(info: info, results: locations)))
         }
     }
     
-    func getLocation(using urlString: String, _ completion: @escaping (Result<Location, Error>) -> Void) {
+    func getLocation(using urlString: String, _ completion: @escaping (Result<Data, Error>) -> Void) {
         if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
-            let location: Location = .init(
-                id: 1,
-                name: "Earth",
-                type: "Planet",
-                dimension: "Dimension C-137",
-                residents: [
-                    "https://rickandmortyapi.com/api/character/1",
-                    "https://rickandmortyapi.com/api/character/2"
-                ],
-                url: "https://rickandmortyapi.com/api/location/1",
-                created: "2017-11-10T12:42:04.162Z"
-            )
-            completion(.success(location))
+            if let jsonPath = Bundle(for: type(of: self)).path(forResource: "location", ofType: "json") {
+                do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: jsonPath), options: .mappedIfSafe)
+                    completion(.success(data))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
         } else {
             completion(.failure(APIError.invalidUrl))
         }

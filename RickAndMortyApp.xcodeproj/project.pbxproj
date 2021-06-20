@@ -77,6 +77,12 @@
 		79519BD4267FF41500022964 /* AppLocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B79267D606000022964 /* AppLocationAPI.swift */; };
 		79519BD5267FF42F00022964 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B7E267D61C900022964 /* NetworkManager.swift */; };
 		79519BD6267FF5B400022964 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B80267D628900022964 /* JSONManager.swift */; };
+		79519BE1268000F600022964 /* episode.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDB268000F600022964 /* episode.json */; };
+		79519BE2268000F600022964 /* characters.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDC268000F600022964 /* characters.json */; };
+		79519BE3268000F600022964 /* episodes.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDD268000F600022964 /* episodes.json */; };
+		79519BE4268000F600022964 /* location.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDE268000F600022964 /* location.json */; };
+		79519BE5268000F600022964 /* character.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDF268000F600022964 /* character.json */; };
+		79519BE6268000F600022964 /* locations.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BE0268000F600022964 /* locations.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +154,12 @@
 		79519BC5267FF0D200022964 /* MockCharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharacterAPI.swift; sourceTree = "<group>"; };
 		79519BC7267FF0E500022964 /* MockEpisodeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEpisodeAPI.swift; sourceTree = "<group>"; };
 		79519BC9267FF0F500022964 /* MockLocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocationAPI.swift; sourceTree = "<group>"; };
+		79519BDB268000F600022964 /* episode.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = episode.json; sourceTree = "<group>"; };
+		79519BDC268000F600022964 /* characters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characters.json; sourceTree = "<group>"; };
+		79519BDD268000F600022964 /* episodes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = episodes.json; sourceTree = "<group>"; };
+		79519BDE268000F600022964 /* location.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = location.json; sourceTree = "<group>"; };
+		79519BDF268000F600022964 /* character.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = character.json; sourceTree = "<group>"; };
+		79519BE0268000F600022964 /* locations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = locations.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,6 +407,7 @@
 		79519BB0267FE27400022964 /* RickAndMortyAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				79519BDA2680001C00022964 /* DummyData */,
 				79519BB9267FE29900022964 /* Mocks */,
 				79519BBA267FE2B500022964 /* RepositoryTests */,
 				79519BB3267FE27400022964 /* Info.plist */,
@@ -420,6 +433,19 @@
 				79519BBD267FE2D300022964 /* LocationRepositoryTests.swift */,
 			);
 			path = RepositoryTests;
+			sourceTree = "<group>";
+		};
+		79519BDA2680001C00022964 /* DummyData */ = {
+			isa = PBXGroup;
+			children = (
+				79519BDF268000F600022964 /* character.json */,
+				79519BDC268000F600022964 /* characters.json */,
+				79519BDB268000F600022964 /* episode.json */,
+				79519BDD268000F600022964 /* episodes.json */,
+				79519BDE268000F600022964 /* location.json */,
+				79519BE0268000F600022964 /* locations.json */,
+			);
+			path = DummyData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -513,6 +539,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79519BE3268000F600022964 /* episodes.json in Resources */,
+				79519BE1268000F600022964 /* episode.json in Resources */,
+				79519BE5268000F600022964 /* character.json in Resources */,
+				79519BE4268000F600022964 /* location.json in Resources */,
+				79519BE6268000F600022964 /* locations.json in Resources */,
+				79519BE2268000F600022964 /* characters.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

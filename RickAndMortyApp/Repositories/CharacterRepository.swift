@@ -32,16 +32,21 @@ final class CharacterRepository {
         if nextPageAvailable {
             api.getCharacters(page: nextPage) { result in
                 switch result {
-                    case .success(let response):
-                        self.paginationInfo = response.info
-                        response.results.forEach { character in
-                            if !self.data.contains(character) {
-                                self.data.append(character)
+                    case .success(let data):
+                        do {
+                            let response: PaginatedResponse<Character> = try JSONManager.shared.decode(data: data)
+                            self.paginationInfo = response.info
+                            response.results.forEach { character in
+                                if !self.data.contains(character) {
+                                    self.data.append(character)
+                                }
                             }
+                            self.data.sort(by: { $0.id < $1.id })
+                            self.nextPage += 1
+                            completion(.success("Success"))
+                        } catch {
+                            completion(.failure(error))
                         }
-                        self.data.sort(by: { $0.id < $1.id })
-                        self.nextPage += 1
-                        completion(.success("Success"))
                     case .failure(let error):
                         print(error.localizedDescription)
                         completion(.failure(error))
@@ -58,10 +63,16 @@ final class CharacterRepository {
         } else {
             api.getCharacter(using: urlString) { result in
                 switch result {
-                    case .success(let character):
-                        self.data.append(character)
-                        self.data.sort(by: { $0.id < $1.id })
-                        completion(.success(character))
+                    case .success(let data):
+                        do {
+                            let character: Character = try JSONManager.shared.decode(data: data)
+                            self.data.append(character)
+                            self.data.sort(by: { $0.id < $1.id })
+                            completion(.success(character))
+                            completion(.success(character))
+                        } catch {
+                            completion(.failure(error))
+                        }
                     case .failure(let error):
                         print(error.localizedDescription)
                         completion(.failure(error))

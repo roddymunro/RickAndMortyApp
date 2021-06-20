@@ -32,16 +32,21 @@ final class LocationRepository {
         if nextPageAvailable {
             api.getLocations(page: nextPage) { result in
                 switch result {
-                    case .success(let response):
-                        self.paginationInfo = response.info
-                        response.results.forEach { location in
-                            if !self.data.contains(location) {
-                                self.data.append(location)
+                    case .success(let data):
+                        do {
+                            let response: PaginatedResponse<Location> = try JSONManager.shared.decode(data: data)
+                            self.paginationInfo = response.info
+                            response.results.forEach { location in
+                                if !self.data.contains(location) {
+                                    self.data.append(location)
+                                }
                             }
+                            self.data.sort(by: { $0.id < $1.id })
+                            self.nextPage += 1
+                            completion(.success("Success"))
+                        } catch {
+                            completion(.failure(error))
                         }
-                        self.data.sort(by: { $0.id < $1.id })
-                        self.nextPage += 1
-                        completion(.success("Success"))
                     case .failure(let error):
                         print(error.localizedDescription)
                         completion(.failure(error))
@@ -58,10 +63,15 @@ final class LocationRepository {
         } else {
             api.getLocation(using: urlString) { result in
                 switch result {
-                    case .success(let location):
-                        self.data.append(location)
-                        self.data.sort(by: { $0.id < $1.id })
-                        completion(.success(location))
+                    case .success(let data):
+                        do {
+                            let location: Location = try JSONManager.shared.decode(data: data)
+                            self.data.append(location)
+                            self.data.sort(by: { $0.id < $1.id })
+                            completion(.success(location))
+                        } catch {
+                            completion(.failure(error))
+                        }
                     case .failure(let error):
                         print(error.localizedDescription)
                         completion(.failure(error))

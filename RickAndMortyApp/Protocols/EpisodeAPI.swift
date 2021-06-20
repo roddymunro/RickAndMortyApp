@@ -9,7 +9,7 @@ import Foundation
 
 protocol EpisodeAPI {
     
-    func getEpisodes(page: Int, _ completion: @escaping (Result<PaginatedResponse<Episode>, Error>) -> Void)
-    func getEpisode(using urlString: String, _ completion: @escaping (Result<Episode, Error>) -> Void)
+    func getEpisodes(page: Int, _ completion: @escaping (Result<Data, Error>) -> Void)
+    func getEpisode(using urlString: String, _ completion: @escaping (Result<Data, Error>) -> Void)
     
 }

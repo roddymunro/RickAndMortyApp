@@ -48,7 +48,7 @@ class CharacterRepositoryTests: XCTestCase {
     
     func testFetchCharacterSuccess() throws {
         let repository = CharacterRepository(api: MockCharacterAPI())
-        let characterUrl = "https://rickandmortyapi.com/api/character/361"
+        let characterUrl = "https://rickandmortyapi.com/api/character/1"
         
         repository.fetchCharacter(by: characterUrl) { result in
             switch result {
