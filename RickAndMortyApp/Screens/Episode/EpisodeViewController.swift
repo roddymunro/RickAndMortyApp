@@ -128,8 +128,10 @@ class EpisodeViewController: UIViewController {
         var previousBottomAnchor = charactersCard.topAnchor
         
         
-        for character in episode.characters {
+        for (idx, character) in episode.characters.enumerated() {
             let characterButton: OpenButton = .init(title: character)
+            characterButton.tag = idx
+            characterButton.addTarget(self, action: #selector(openCharacter), for: .touchUpInside)
             characterButtons.append(characterButton)
             charactersCard.addSubview(characterButton)
 
@@ -156,5 +158,23 @@ class EpisodeViewController: UIViewController {
         
         charactersHeaderLabel.text = NSLocalizedString(
             "header.episode.characters", comment: "The header label for the episode's characters section.")
+    }
+    
+    @objc private func openCharacter(sender: UIButton) {
+        let characterUrlString = episode.characters[sender.tag]
+        
+        repositories.character.fetchCharacter(by: characterUrlString) { character in
+            if let character = character {
+                self.present(character)
+            }
+        }
+    }
+    
+    private func present(_ character: Character) {
+        DispatchQueue.main.async {
+            let characterViewController = CharacterViewController(character: character, repositories: self.repositories)
+            let navigationController = UINavigationController(rootViewController: characterViewController)
+            self.present(navigationController, animated: true)
+        }
     }
 }

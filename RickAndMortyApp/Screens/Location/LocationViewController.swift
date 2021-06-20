@@ -126,8 +126,10 @@ class LocationViewController: UIViewController {
         
         var previousBottomAnchor = residentsCard.topAnchor
 
-        for resident in location.residents {
+        for (idx, resident) in location.residents.enumerated() {
             let residentButton: OpenButton = .init(title: resident)
+            residentButton.tag = idx
+            residentButton.addTarget(self, action: #selector(openCharacter), for: .touchUpInside)
             residentButtons.append(residentButton)
             residentsCard.addSubview(residentButton)
 
@@ -154,5 +156,23 @@ class LocationViewController: UIViewController {
         
         residentsHeaderLabel.text = NSLocalizedString(
             "header.location.residents", comment: "The header label for the location's residents section.")
+    }
+    
+    @objc private func openCharacter(sender: UIButton) {
+        let characterUrlString = location.residents[sender.tag]
+        
+        repositories.character.fetchCharacter(by: characterUrlString) { character in
+            if let character = character {
+                self.present(character)
+            }
+        }
+    }
+    
+    private func present(_ character: Character) {
+        DispatchQueue.main.async {
+            let characterViewController = CharacterViewController(character: character, repositories: self.repositories)
+            let navigationController = UINavigationController(rootViewController: characterViewController)
+            self.present(navigationController, animated: true)
+        }
     }
 }

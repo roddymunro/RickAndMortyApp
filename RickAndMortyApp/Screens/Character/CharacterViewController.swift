@@ -151,8 +151,10 @@ class CharacterViewController: UIViewController {
         
         var previousBottomAnchor = episodesCard.topAnchor
 
-        for episode in character.episode {
+        for (idx, episode) in character.episode.enumerated() {
             let episodeButton: OpenButton = .init(title: episode)
+            episodeButton.tag = idx
+            episodeButton.addTarget(self, action: #selector(openEpisode), for: .touchUpInside)
             episodeButtons.append(episodeButton)
             episodesCard.addSubview(episodeButton)
 
@@ -207,10 +209,28 @@ class CharacterViewController: UIViewController {
         }
     }
     
+    @objc private func openEpisode(sender: UIButton) {
+        let episodeUrlString = character.episode[sender.tag]
+        
+        repositories.episode.fetchEpisode(by: episodeUrlString) { episode in
+            if let episode = episode {
+                self.present(episode)
+            }
+        }
+    }
+    
     private func present(_ location: Location) {
         DispatchQueue.main.async {
             let locationViewController = LocationViewController(location: location, repositories: self.repositories)
             let navigationController = UINavigationController(rootViewController: locationViewController)
+            self.present(navigationController, animated: true)
+        }
+    }
+    
+    private func present(_ episode: Episode) {
+        DispatchQueue.main.async {
+            let episodeViewController = EpisodeViewController(episode: episode, repositories: self.repositories)
+            let navigationController = UINavigationController(rootViewController: episodeViewController)
             self.present(navigationController, animated: true)
         }
     }
