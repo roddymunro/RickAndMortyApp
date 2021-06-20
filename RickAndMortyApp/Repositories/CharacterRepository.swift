@@ -11,9 +11,9 @@ final class CharacterRepository {
     
     private let api: CharacterAPI
     
-    private var paginationInfo: Info?
+    private(set) var paginationInfo: Info?
     private(set) var data: [Character] = []
-    private var nextPage: Int = 1
+    private(set) var nextPage: Int = 1
     
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
@@ -23,8 +23,9 @@ final class CharacterRepository {
         }
     }
     
-    init(api: CharacterAPI = AppCharacterAPI()) {
+    init(api: CharacterAPI = AppCharacterAPI(), nextPage: Int = 1) {
         self.api = api
+        self.nextPage = nextPage
     }
     
     public func fetchCharacters(_ completion: @escaping (Result<String, Error>) -> Void) {

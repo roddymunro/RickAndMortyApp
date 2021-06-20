@@ -11,9 +11,9 @@ final class LocationRepository {
     
     private let api: LocationAPI
     
-    private var paginationInfo: Info?
+    private(set) var paginationInfo: Info?
     private(set) var data: [Location] = []
-    private var nextPage: Int = 1
+    private(set) var nextPage: Int = 1
     
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
@@ -23,8 +23,9 @@ final class LocationRepository {
         }
     }
     
-    init(api: LocationAPI = AppLocationAPI()) {
+    init(api: LocationAPI = AppLocationAPI(), nextPage: Int = 1) {
         self.api = api
+        self.nextPage = nextPage
     }
     
     public func fetchLocations(_ completion: @escaping (Result<String, Error>) -> Void) {

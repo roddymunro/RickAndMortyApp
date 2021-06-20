@@ -11,9 +11,9 @@ final class EpisodeRepository {
     
     private let api: EpisodeAPI
     
-    private var paginationInfo: Info?
+    private(set) var paginationInfo: Info?
     private(set) var data: [Episode] = []
-    private var nextPage: Int = 1
+    private(set) var nextPage: Int = 1
     
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
@@ -23,8 +23,9 @@ final class EpisodeRepository {
         }
     }
     
-    init(api: EpisodeAPI = AppEpisodeAPI()) {
+    init(api: EpisodeAPI = AppEpisodeAPI(), nextPage: Int = 1) {
         self.api = api
+        self.nextPage = nextPage
     }
     
     public func fetchEpisodes(_ completion: @escaping (Result<String, Error>) -> Void) {
