@@ -10,6 +10,6 @@ import Foundation
 protocol LocationAPI {
     
     func getLocations(page: Int, _ completion: @escaping (Result<PaginatedResponse<Location>, Error>) -> Void)
-    func getLocation(id: Int, _ completion: @escaping (Result<Location, Error>) -> Void)
+    func getLocation(using urlString: String, _ completion: @escaping (Result<Location, Error>) -> Void)
     
 }

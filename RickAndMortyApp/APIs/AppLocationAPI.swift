@@ -9,7 +9,7 @@ import Foundation
 
 final class AppLocationAPI: LocationAPI {
     func getLocations(page: Int, _ completion: @escaping (Result<PaginatedResponse<Location>, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "location/?page=\(page)") { result in
+        NetworkManager.shared.getDataFrom(endpoint: "location/?page=\(page)") { result in
             switch result {
                 case .success(let data):
                     do {
@@ -24,8 +24,8 @@ final class AppLocationAPI: LocationAPI {
         }
     }
     
-    func getLocation(id: Int, _ completion: @escaping (Result<Location, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "location/\(id)") { result in
+    func getLocation(using urlString: String, _ completion: @escaping (Result<Location, Error>) -> Void) {
+        NetworkManager.shared.getDataUsing(urlString: urlString) { result in
             switch result {
                 case .success(let data):
                     do {

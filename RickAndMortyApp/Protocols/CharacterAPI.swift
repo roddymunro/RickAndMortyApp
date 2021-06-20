@@ -10,6 +10,6 @@ import Foundation
 protocol CharacterAPI {
     
     func getCharacters(page: Int, _ completion: @escaping (Result<PaginatedResponse<Character>, Error>) -> Void)
-    func getCharacter(id: Int, _ completion: @escaping (Result<Character, Error>) -> Void)
+    func getCharacter(using urlString: String, _ completion: @escaping (Result<Character, Error>) -> Void)
     
 }

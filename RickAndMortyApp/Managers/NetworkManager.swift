@@ -18,12 +18,29 @@ class NetworkManager {
     
     private init() {}
     
-    public func getData(from endpoint: String, _ completion: @escaping (Result<Data, Error>) -> Void) {
+    public func getDataFrom(endpoint: String, _ completion: @escaping (Result<Data, Error>) -> Void) {
         guard let url = URL(string: baseUrl+endpoint) else {
             completion(.failure(APIError.invalidUrl))
             return
         }
         
+        performDataTask(using: url) { result in
+            completion(result)
+        }
+    }
+    
+    public func getDataUsing(urlString: String, _ completion: @escaping (Result<Data, Error>) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(.failure(APIError.invalidUrl))
+            return
+        }
+        
+        performDataTask(using: url) { result in
+            completion(result)
+        }
+    }
+    
+    private func performDataTask(using url: URL, _ completion: @escaping (Result<Data, Error>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))

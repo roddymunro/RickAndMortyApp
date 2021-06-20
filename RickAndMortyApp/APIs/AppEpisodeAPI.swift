@@ -9,7 +9,7 @@ import Foundation
 
 final class AppEpisodeAPI: EpisodeAPI {
     func getEpisodes(page: Int, _ completion: @escaping (Result<PaginatedResponse<Episode>, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "episode/?page=\(page)") { result in
+        NetworkManager.shared.getDataFrom(endpoint: "episode/?page=\(page)") { result in
             switch result {
                 case .success(let data):
                     do {
@@ -24,8 +24,8 @@ final class AppEpisodeAPI: EpisodeAPI {
         }
     }
     
-    func getEpisode(id: Int, _ completion: @escaping (Result<Episode, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "episode/\(id)") { result in
+    func getEpisode(using urlString: String, _ completion: @escaping (Result<Episode, Error>) -> Void) {
+        NetworkManager.shared.getDataUsing(urlString: urlString) { result in
             switch result {
                 case .success(let data):
                     do {

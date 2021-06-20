@@ -9,7 +9,7 @@ import Foundation
 
 final class AppCharacterAPI: CharacterAPI {
     func getCharacters(page: Int, _ completion: @escaping (Result<PaginatedResponse<Character>, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "character/?page=\(page)") { result in
+        NetworkManager.shared.getDataFrom(endpoint: "character/?page=\(page)") { result in
             switch result {
                 case .success(let data):
                     do {
@@ -24,8 +24,8 @@ final class AppCharacterAPI: CharacterAPI {
         }
     }
     
-    func getCharacter(id: Int, _ completion: @escaping (Result<Character, Error>) -> Void) {
-        NetworkManager.shared.getData(from: "character/\(id)") { result in
+    func getCharacter(using urlString: String, _ completion: @escaping (Result<Character, Error>) -> Void) {
+        NetworkManager.shared.getDataUsing(urlString: urlString) { result in
             switch result {
                 case .success(let data):
                     do {
