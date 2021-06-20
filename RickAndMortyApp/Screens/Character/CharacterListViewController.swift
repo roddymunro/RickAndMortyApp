@@ -50,7 +50,10 @@ class CharacterListViewController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Characters"
+        title = NSLocalizedString(
+            "navigationTitle.characters",
+            comment: "The navigation title for the Characters screen."
+        )
     }
 
     private func configureDataSource() {

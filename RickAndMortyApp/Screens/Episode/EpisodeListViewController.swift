@@ -47,7 +47,10 @@ class EpisodeListViewController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Episodes"
+        title = NSLocalizedString(
+            "navigationTitle.episodes",
+            comment: "The navigation title for the Episodes screen."
+        )
     }
     
     private func updateData() {

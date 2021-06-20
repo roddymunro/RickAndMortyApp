@@ -19,13 +19,20 @@ class CharacterViewController: UIViewController {
     
     let detailsCard = CardView()
     let detailsHeaderLabel = TitleLabel(textAlignment: .left)
-    let nameDetail = DetailView(title: "Name")
-    let statusDetail = DetailView(title: "Status")
-    let speciesDetail = DetailView(title: "Species")
-    let typeDetail = DetailView(title: "Type")
-    let genderDetail = DetailView(title: "Gender")
-    let originDetail = DetailButtonView(title: "Origin")
-    let locationDetail = DetailButtonView(title: "Location")
+    let nameDetail = DetailView(title: NSLocalizedString(
+        "label.character.name", comment: "The label for the character's name detail."))
+    let statusDetail = DetailView(title: NSLocalizedString(
+        "label.character.status", comment: "The label for the character's status detail."))
+    let speciesDetail = DetailView(title: NSLocalizedString(
+        "label.character.species", comment: "The label for the character's species detail."))
+    let typeDetail = DetailView(title: NSLocalizedString(
+        "label.character.type", comment: "The label for the character's type detail."))
+    let genderDetail = DetailView(title: NSLocalizedString(
+        "label.character.gender", comment: "The label for the character's gender detail."))
+    let originDetail = DetailButtonView(title: NSLocalizedString(
+        "label.character.origin", comment: "The label for the character's origin detail."))
+    let locationDetail = DetailButtonView(title: NSLocalizedString(
+        "label.character.location", comment: "The label for the character's location detail."))
     
     let episodesCard = CardView()
     let episodesHeaderLabel = TitleLabel(textAlignment: .left)
@@ -165,7 +172,8 @@ class CharacterViewController: UIViewController {
     private func configureUIElements() {
         imageView.downloadImage(from: character.image)
         
-        detailsHeaderLabel.text = "Character Details"
+        detailsHeaderLabel.text = NSLocalizedString(
+            "header.character.characterDetails", comment: "The header label for the character's details section.")
         nameDetail.set(detail: character.name)
         statusDetail.set(detail: character.status)
         speciesDetail.set(detail: character.species)
@@ -177,7 +185,8 @@ class CharacterViewController: UIViewController {
         locationDetail.set(detail: character.location.name)
 //        locationDetail.detailButton.addTarget(self, action: #selector(openLocation), for: .touchUpInside)
         
-        episodesHeaderLabel.text = "Episodes"
+        episodesHeaderLabel.text = NSLocalizedString(
+            "header.character.episodes", comment: "The header label for the character's episodes section.")
         
     }
     

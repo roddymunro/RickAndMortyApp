@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  RickAndMortyApp
+
+  Created by Roddy Munro on 2021-06-20.
+  
+*/
+
+"errors.APIError.invalidResponse" = "The response returned by the server is invalid.";
+"errors.APIError.decodingError" = "A problem occurred when decoding the JSON.";
+"errors.APIError.invalidUrl" = "The URL given is invalid.";
+"navigationTitle.characters" = "Characters";
+"navigationTitle.episodes" = "Episodes";
+"navigationTitle.locations" = "Locations";
+
+"label.character.name" = "Name";
+"label.character.status" = "Status";
+"label.character.species" = "Species";
+"label.character.type" = "Type";
+"label.character.gender" = "Gender";
+"label.character.origin" = "Origin";
+"label.character.location" = "Location";
+"header.character.characterDetails" = "Character Details";
+"header.character.episodes" = "Episodes";
+
+"label.episode.name" = "Name";
+"label.episode.airDate" = "Air Date";
+"label.episode.episode" = "Episode";
+"header.episode.episodeDetails" = "Episode Details";
+"header.episode.characters" = "Characters";
+
+"label.location.name" = "Name";
+"label.location.type" = "Type";
+"label.location.dimension" = "Dimension";
+"header.location.locationDetails" = "Location Details";
+"header.location.residents" = "Residents";

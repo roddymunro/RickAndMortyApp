@@ -17,9 +17,12 @@ class LocationViewController: UIViewController {
     
     let detailsCard = CardView()
     let detailsHeaderLabel = TitleLabel(textAlignment: .left)
-    let nameDetail = DetailView(title: "Name")
-    let typeDetail = DetailView(title: "Type")
-    let dimensionDetail = DetailView(title: "Dimension")
+    let nameDetail = DetailView(title: NSLocalizedString(
+        "label.location.name", comment: "The label for the location's name detail."))
+    let typeDetail = DetailView(title: NSLocalizedString(
+        "label.location.type", comment: "The label for the location's type detail."))
+    let dimensionDetail = DetailView(title: NSLocalizedString(
+        "label.location.dimension", comment: "The label for the location's dimension detail."))
     
     let residentsCard = CardView()
     let residentsHeaderLabel = TitleLabel(textAlignment: .left)
@@ -143,11 +146,13 @@ class LocationViewController: UIViewController {
     }
     
     private func configureUIElements() {
-        detailsHeaderLabel.text = "Location Details"
+        detailsHeaderLabel.text = NSLocalizedString(
+            "header.location.locationDetails", comment: "The header label for the location's details section.")
         nameDetail.set(detail: location.name)
         typeDetail.set(detail: location.type)
         dimensionDetail.set(detail: location.dimension)
         
-        residentsHeaderLabel.text = "Residents"
+        residentsHeaderLabel.text = NSLocalizedString(
+            "header.location.residents", comment: "The header label for the location's residents section.")
     }
 }

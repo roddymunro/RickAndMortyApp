@@ -47,7 +47,10 @@ class LocationListViewController: UIViewController {
     private func configureViewController() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Locations"
+        title = NSLocalizedString(
+            "navigationTitle.locations",
+            comment: "The navigation title for the Locations screen."
+        )
     }
     
     private func updateData() {

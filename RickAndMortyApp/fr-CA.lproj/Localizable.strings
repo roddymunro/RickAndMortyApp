@@ -1,0 +1,36 @@
+/* 
+  Localizable.strings
+  RickAndMortyApp
+
+  Created by Roddy Munro on 2021-06-20.
+  
+*/
+
+"errors.APIError.invalidResponse" = "La réponse renvoyée par le serveur est invalide.";
+"errors.APIError.decodingError" = "Un problème est survenu lors du décodage du JSON.";
+"errors.APIError.invalidUrl" = "L'URL fournie n'est pas valide.";
+"navigationTitle.characters" = "Personnages";
+"navigationTitle.episodes" = "Épisodes";
+"navigationTitle.locations" = "Emplacements";
+
+"label.character.name" = "Nom";
+"label.character.status" = "Statut";
+"label.character.species" = "Species";
+"label.character.type" = "Taper";
+"label.character.gender" = "Genre";
+"label.character.origin" = "Origine";
+"label.character.location" = "Emplacement";
+"header.character.characterDetails" = "Détails du personnage";
+"header.character.episodes" = "Épisodes";
+
+"label.episode.name" = "Nom";
+"label.episode.airDate" = "Date de diffusion";
+"label.episode.episode" = "Épisode";
+"header.episode.episodeDetails" = "Détails de l'épisode";
+"header.episode.characters" = "Personnages";
+
+"label.location.name" = "Nom";
+"label.location.type" = "Taper";
+"label.location.dimension" = "Dimension";
+"header.location.locationDetails" = "Détails de l'emplacement";
+"header.location.residents" = "Résidentes";

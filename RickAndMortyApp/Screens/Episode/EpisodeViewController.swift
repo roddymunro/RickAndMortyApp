@@ -17,9 +17,12 @@ class EpisodeViewController: UIViewController {
     
     let detailsCard = CardView()
     let detailsHeaderLabel = TitleLabel(textAlignment: .left)
-    let nameDetail = DetailView(title: "Name")
-    let airDateDetail = DetailView(title: "Air Date")
-    let episodeDetail = DetailView(title: "Episode")
+    let nameDetail = DetailView(title: NSLocalizedString(
+        "label.episode.name", comment: "The label for the episode's name detail."))
+    let airDateDetail = DetailView(title: NSLocalizedString(
+        "label.episode.airDate", comment: "The label for the episode's air date detail."))
+    let episodeDetail = DetailView(title: NSLocalizedString(
+        "label.episode.episode", comment: "The label for the episode's episode key detail."))
     
     let charactersCard = CardView()
     let charactersHeaderLabel = TitleLabel(textAlignment: .left)
@@ -122,7 +125,8 @@ class EpisodeViewController: UIViewController {
         ])
         
         var previousBottomAnchor = charactersCard.topAnchor
-
+        
+        
         for character in episode.characters {
             let characterButton: OpenButton = .init(title: character)
             characterButtons.append(characterButton)
@@ -143,11 +147,13 @@ class EpisodeViewController: UIViewController {
     }
     
     private func configureUIElements() {
-        detailsHeaderLabel.text = "Episode Details"
+        detailsHeaderLabel.text = NSLocalizedString(
+            "header.episode.episodeDetails", comment: "The header label for the episode's details section.")
         nameDetail.set(detail: episode.name)
         airDateDetail.set(detail: episode.airDate)
         episodeDetail.set(detail: episode.episode)
         
-        charactersHeaderLabel.text = "Characters"
+        charactersHeaderLabel.text = NSLocalizedString(
+            "header.episode.characters", comment: "The header label for the episode's characters section.")
     }
 }
