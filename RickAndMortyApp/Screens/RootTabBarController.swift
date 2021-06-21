@@ -27,7 +27,14 @@ class RootTabBarController: UITabBarController {
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let characterIcon = UIImage(systemName: "person.3", withConfiguration: iconConfig)
         
-        charactersViewController.tabBarItem = UITabBarItem(title: "Characters", image: characterIcon, tag: 0)
+        charactersViewController.tabBarItem = UITabBarItem(
+            title: NSLocalizedString(
+                "navigationTitle.characters",
+                comment: "The navigation title for the Characters screen."
+            ),
+            image: characterIcon,
+            tag: 0
+        )
         return UINavigationController(rootViewController: charactersViewController)
     }
     
@@ -37,7 +44,14 @@ class RootTabBarController: UITabBarController {
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let episodeIcon = UIImage(systemName: "play.rectangle", withConfiguration: iconConfig)
         
-        episodesViewController.tabBarItem = UITabBarItem(title: "Episodes", image: episodeIcon, tag: 1)
+        episodesViewController.tabBarItem = UITabBarItem(
+            title: NSLocalizedString(
+                "navigationTitle.episodes",
+                comment: "The navigation title for the Episodes screen."
+            ),
+            image: episodeIcon,
+            tag: 1
+        )
         return UINavigationController(rootViewController: episodesViewController)
     }
     
@@ -47,7 +61,14 @@ class RootTabBarController: UITabBarController {
         let iconConfig = UIImage.SymbolConfiguration(scale: .large)
         let locationIcon = UIImage(systemName: "globe", withConfiguration: iconConfig)
         
-        locationsViewController.tabBarItem = UITabBarItem(title: "Locations", image: locationIcon, tag: 1)
+        locationsViewController.tabBarItem = UITabBarItem(
+            title: NSLocalizedString(
+                "navigationTitle.locations",
+                comment: "The navigation title for the Locations screen."
+            ),
+            image: locationIcon,
+            tag: 1
+        )
         return UINavigationController(rootViewController: locationsViewController)
     }
 }

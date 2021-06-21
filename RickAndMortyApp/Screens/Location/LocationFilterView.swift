@@ -19,17 +19,20 @@ struct LocationFilterView: View {
     }
     
     var leadingBarItems: some View {
-        Button("Reset", action: filter.reset)
+        Button(NSLocalizedString("button.reset", comment: "The button to reset the filter"), action: filter.reset)
     }
     
     var trailingBarItems: some View {
-        Button(filter.isActive ? "Search" : "Close", action: onTrailingButtonTap)
+        Button(
+            filter.isActive ? NSLocalizedString("button.search", comment: "The button to search.")
+                : NSLocalizedString("button.close", comment: "The button to close the view"),
+            action: onTrailingButtonTap)
     }
     
     var body: some View {
         NavigationView{
             content
-                .navigationTitle("Filter Locations")
+                .navigationTitle(NSLocalizedString("navigationTitle.locations.filter", comment: "The navigation title for the location filter screen."))
                 .navigationBarItems(leading: leadingBarItems, trailing: trailingBarItems)
                 .navigationBarTitleDisplayMode(.inline)
         }.navigationViewStyle(StackNavigationViewStyle())
@@ -37,10 +40,10 @@ struct LocationFilterView: View {
     
     var content: some View {
         Form {
-            Section(header: Text("Filters (Optional)")) {
-                FormField(label: "Name", value: $filter.name)
-                FormField(label: "Type", value: $filter.type)
-                FormField(label: "Dimension", value: $filter.dimension)
+            Section {
+                FormField(label: NSLocalizedString("label.location.name", comment: "The label for the location's name detail."), value: $filter.name)
+                FormField(label: NSLocalizedString("label.location.type", comment: "The label for the location's type detail."), value: $filter.type)
+                FormField(label: NSLocalizedString("label.location.dimension", comment: "The label for the location's dimension detail."), value: $filter.dimension)
             }
         }
     }

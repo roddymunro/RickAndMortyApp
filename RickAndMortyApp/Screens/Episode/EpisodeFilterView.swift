@@ -19,17 +19,20 @@ struct EpisodeFilterView: View {
     }
     
     var leadingBarItems: some View {
-        Button("Reset", action: filter.reset)
+        Button(NSLocalizedString("button.reset", comment: "The button to reset the filter"), action: filter.reset)
     }
     
     var trailingBarItems: some View {
-        Button(filter.isActive ? "Search" : "Close", action: onTrailingButtonTap)
+        Button(
+            filter.isActive ? NSLocalizedString("button.search", comment: "The button to search.")
+                : NSLocalizedString("button.close", comment: "The button to close the view"),
+            action: onTrailingButtonTap)
     }
     
     var body: some View {
         NavigationView{
             content
-                .navigationTitle("Filter Episodes")
+                .navigationTitle(NSLocalizedString("navigationTitle.episodes.filter", comment: "The navigation title for the location filter screen."))
                 .navigationBarItems(leading: leadingBarItems, trailing: trailingBarItems)
                 .navigationBarTitleDisplayMode(.inline)
         }.navigationViewStyle(StackNavigationViewStyle())
@@ -37,9 +40,9 @@ struct EpisodeFilterView: View {
     
     var content: some View {
         Form {
-            Section(header: Text("Filters (Optional)")) {
-                FormField(label: "Name", value: $filter.name)
-                FormField(label: "Episode", value: $filter.episode)
+            Section {
+                FormField(label: NSLocalizedString("label.episode.name", comment: "The label for the episode's name detail."), value: $filter.name)
+                FormField(label: NSLocalizedString("label.episode.episode", comment: "The label for the episode's episode detail."), value: $filter.episode)
             }
         }
     }

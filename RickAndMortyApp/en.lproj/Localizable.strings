@@ -9,9 +9,13 @@
 "errors.APIError.invalidResponse" = "The response returned by the server is invalid.";
 "errors.APIError.decodingError" = "A problem occurred when decoding the JSON.";
 "errors.APIError.invalidUrl" = "The URL given is invalid.";
+
 "navigationTitle.characters" = "Characters";
 "navigationTitle.episodes" = "Episodes";
 "navigationTitle.locations" = "Locations";
+"navigationTitle.characters.filter" = "Filter Characters";
+"navigationTitle.episodes.filter" = "Filter Episodes";
+"navigationTitle.locations.filter" = "Filter Locations";
 
 "label.character.name" = "Name";
 "label.character.status" = "Status";
@@ -41,3 +45,7 @@
 "alert.character.fetchAll" = "Couldn't Fetch Characters";
 "alert.episode.fetchAll" = "Couldn't Fetch Episodes";
 "alert.location.fetchAll" = "Couldn't Fetch Locations";
+
+"button.reset" = "Reset";
+"button.search" = "Search";
+"button.close" = "Close";

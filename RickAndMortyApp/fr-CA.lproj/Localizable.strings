@@ -9,9 +9,13 @@
 "errors.APIError.invalidResponse" = "La réponse renvoyée par le serveur est invalide.";
 "errors.APIError.decodingError" = "Un problème est survenu lors du décodage du JSON.";
 "errors.APIError.invalidUrl" = "L'URL fournie n'est pas valide.";
+
 "navigationTitle.characters" = "Personnages";
 "navigationTitle.episodes" = "Épisodes";
 "navigationTitle.locations" = "Emplacements";
+"navigationTitle.characters.filter" = "Filtrer les caractères";
+"navigationTitle.episodes.filter" = "Filtrer les épisodes";
+"navigationTitle.locations.filter" = "Filtrer les emplacements";
 
 "label.character.name" = "Nom";
 "label.character.status" = "Statut";
@@ -41,3 +45,7 @@
 "alert.character.fetchAll" = "Impossible de récupérer les caractères";
 "alert.episode.fetchAll" = "Impossible de récupérer les épisodes";
 "alert.location.fetchAll" = "Impossible de récupérer les emplacements";
+
+"button.reset" = "Réinitialiser";
+"button.search" = "Rechercher";
+"button.close" = "Fermer";
