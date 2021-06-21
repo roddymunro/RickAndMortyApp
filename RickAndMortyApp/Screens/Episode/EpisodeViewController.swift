@@ -163,7 +163,7 @@ class EpisodeViewController: UIViewController {
     @objc private func openCharacter(sender: UIButton) {
         let characterUrlString = episode.characters[sender.tag]
         
-        repositories.character.fetchCharacter(by: characterUrlString) { result in
+        repositories.character.fetch(by: characterUrlString) { result in
             switch result {
                 case .success(let character):
                     self.present(character)

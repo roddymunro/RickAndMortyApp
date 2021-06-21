@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class LocationFilter: ObservableObject {
+final class LocationFilter: ObservableObject, Filter {
     
     @Published var name: String = ""
     @Published var type: String = ""

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class EpisodeFilter: ObservableObject {
+final class EpisodeFilter: ObservableObject, Filter {
     
     @Published var name: String = ""
     @Published var episode: String = ""

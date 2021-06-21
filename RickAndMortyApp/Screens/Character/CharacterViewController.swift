@@ -194,7 +194,7 @@ class CharacterViewController: UIViewController {
     }
     
     @objc private func openOrigin() {
-        repositories.location.fetchLocation(by: character.origin.url) { result in
+        repositories.location.fetch(by: character.origin.url) { result in
             switch result {
                 case .success(let location):
                     self.present(location)
@@ -205,7 +205,7 @@ class CharacterViewController: UIViewController {
     }
     
     @objc private func openLocation() {
-        repositories.location.fetchLocation(by: character.location.url) { result in
+        repositories.location.fetch(by: character.location.url) { result in
             switch result {
                 case .success(let location):
                     self.present(location)
@@ -218,7 +218,7 @@ class CharacterViewController: UIViewController {
     @objc private func openEpisode(sender: UIButton) {
         let episodeUrlString = character.episode[sender.tag]
         
-        repositories.episode.fetchEpisode(by: episodeUrlString) { result in
+        repositories.episode.fetch(by: episodeUrlString) { result in
             switch result {
                 case .success(let episode):
                     self.present(episode)

@@ -1,21 +1,21 @@
 //
-//  EpisodeRepository.swift
+//  Repository.swift
 //  RickAndMortyApp
 //
-//  Created by Roddy Munro on 2021-06-18.
+//  Created by Roddy Munro on 2021-06-21.
 //
 
 import Foundation
 
-final class EpisodeRepository {
+final class Repository<T: FetchableItem> {
     
-    private let api: EpisodeAPI
+    private let api: API
     
     private(set) var paginationInfo: Info?
-    private(set) var data: [Episode] = []
+    private(set) var data: [T] = []
     private(set) var nextPage: Int = 1
     
-    private(set) var filter = EpisodeFilter()
+    private(set) var filter: Filter
     
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
@@ -25,21 +25,22 @@ final class EpisodeRepository {
         }
     }
     
-    init(api: EpisodeAPI = AppEpisodeAPI(), nextPage: Int = 1) {
+    init(api: API, filter: Filter, nextPage: Int = 1) {
         self.api = api
+        self.filter = filter
         self.nextPage = nextPage
     }
     
-    public func fetchEpisodes(_ completion: @escaping (Result<String, Error>) -> Void) {
+    public func fetchNextPage(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
             if filter.isActive {
-                api.filterEpisodes(by: filter.filterString, page: nextPage) { result in
+                api.filter(by: filter.filterString, page: nextPage) { result in
                     self.handleFetchResult(result) { result in
                         completion(result)
                     }
                 }
             } else {
-                api.getEpisodes(page: nextPage) { result in
+                api.fetchNextPage(page: nextPage) { result in
                     self.handleFetchResult(result) { result in
                         completion(result)
                     }
@@ -50,18 +51,18 @@ final class EpisodeRepository {
         }
     }
     
-    public func fetchEpisode(by urlString: String, _ completion: @escaping (Result<Episode, Error>) -> Void) {
-        if let episode = getEpisodeByUrl(urlString: urlString) {
-            completion(.success(episode))
+    public func fetch(by urlString: String, _ completion: @escaping (Result<T, Error>) -> Void) {
+        if let item = getByUrl(urlString: urlString) {
+            completion(.success(item))
         } else {
-            api.getEpisode(using: urlString) { result in
+            api.fetch(using: urlString) { result in
                 switch result {
                     case .success(let data):
                         do {
-                            let episode: Episode = try JSONManager.shared.decode(data: data)
-                            self.data.append(episode)
+                            let item: T = try JSONManager.shared.decode(data: data)
+                            self.data.append(item)
                             self.data.sort(by: { $0.id < $1.id })
-                            completion(.success(episode))
+                            completion(.success(item))
                         } catch {
                             completion(.failure(error))
                         }
@@ -77,11 +78,11 @@ final class EpisodeRepository {
         switch result {
             case .success(let data):
                 do {
-                    let response: PaginatedResponse<Episode> = try JSONManager.shared.decode(data: data)
+                    let response: PaginatedResponse<T> = try JSONManager.shared.decode(data: data)
                     self.paginationInfo = response.info
-                    response.results.forEach { episode in
-                        if !self.data.contains(episode) {
-                            self.data.append(episode)
+                    response.results.forEach { item in
+                        if !self.data.contains(item) {
+                            self.data.append(item)
                         }
                     }
                     self.data.sort(by: { $0.id < $1.id })
@@ -100,12 +101,13 @@ final class EpisodeRepository {
         nextPage = 1
         data.removeAll()
         paginationInfo = nil
-        fetchEpisodes { result in
+        fetchNextPage { result in
             completion(result)
         }
     }
     
-    private func getEpisodeByUrl(urlString: String) -> Episode? {
+    private func getByUrl(urlString: String) -> T? {
         data.first { $0.url == urlString }
     }
+    
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct Character: Codable, Identifiable {
+struct Character: FetchableItem {
     
-    let id: Int
-    let name: String
+    var id: Int
+    var name: String
     let status: String
     let species: String
     let type: String
@@ -19,11 +19,9 @@ struct Character: Codable, Identifiable {
     let location: LocationReference
     let image: String
     let episode: [String]
-    let url: String
-    let created: String
-}
-
-extension Character: Hashable {
+    var url: String
+    var created: String
+    
     static func == (lhs: Character, rhs: Character) -> Bool {
         lhs.id == rhs.id
     }

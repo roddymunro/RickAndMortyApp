@@ -7,18 +7,16 @@
 
 import Foundation
 
-struct Episode: Codable, Identifiable {
+struct Episode: FetchableItem {
     
-    let id: Int
-    let name: String
+    var id: Int
+    var name: String
     let airDate: String
     let episode: String
     let characters: [String]
-    let url: String
-    let created: String
-}
-
-extension Episode: Hashable {
+    var url: String
+    var created: String
+    
     static func == (lhs: Episode, rhs: Episode) -> Bool {
         lhs.id == rhs.id
     }

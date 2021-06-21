@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		792B631E26813CBE000DBD33 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B631D26813CBE000DBD33 /* Repository.swift */; };
+		792B632026813D58000DBD33 /* FetchableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B631F26813D58000DBD33 /* FetchableItem.swift */; };
+		792B632226813E24000DBD33 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B632126813E24000DBD33 /* Filter.swift */; };
+		792B632426813F5F000DBD33 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B632326813F5F000DBD33 /* API.swift */; };
 		793F271F267E44E60095E7A7 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F271E267E44E60095E7A7 /* RootTabBarController.swift */; };
 		793F2723267E45650095E7A7 /* EpisodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F2722267E45650095E7A7 /* EpisodeListViewController.swift */; };
 		793F2727267E45910095E7A7 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793F2726267E45910095E7A7 /* LocationListViewController.swift */; };
@@ -33,19 +37,11 @@
 		79519B4B267D5A6B00022964 /* CharacterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B4A267D5A6B00022964 /* CharacterListViewController.swift */; };
 		79519B50267D5A6C00022964 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79519B4F267D5A6C00022964 /* Assets.xcassets */; };
 		79519B53267D5A6C00022964 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79519B51267D5A6C00022964 /* LaunchScreen.storyboard */; };
-		79519B5D267D5BDA00022964 /* AppCharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5C267D5BDA00022964 /* AppCharacterAPI.swift */; };
-		79519B5F267D5BE400022964 /* CharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5E267D5BE400022964 /* CharacterAPI.swift */; };
+		79519B5D267D5BDA00022964 /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5C267D5BDA00022964 /* AppAPI.swift */; };
 		79519B62267D5C5D00022964 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B61267D5C5D00022964 /* Character.swift */; };
 		79519B64267D5C6600022964 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B63267D5C6600022964 /* Episode.swift */; };
 		79519B66267D5C7200022964 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B65267D5C7200022964 /* Location.swift */; };
 		79519B69267D5E5000022964 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B68267D5E5000022964 /* APIError.swift */; };
-		79519B6E267D5F2700022964 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B6D267D5F2700022964 /* CharacterRepository.swift */; };
-		79519B70267D5F2F00022964 /* EpisodeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B6F267D5F2F00022964 /* EpisodeRepository.swift */; };
-		79519B72267D5F3600022964 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B71267D5F3600022964 /* LocationRepository.swift */; };
-		79519B74267D5F9200022964 /* LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B73267D5F9200022964 /* LocationAPI.swift */; };
-		79519B76267D5FAF00022964 /* EpisodeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B75267D5FAF00022964 /* EpisodeAPI.swift */; };
-		79519B78267D604800022964 /* AppEpisodeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B77267D604800022964 /* AppEpisodeAPI.swift */; };
-		79519B7A267D606000022964 /* AppLocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B79267D606000022964 /* AppLocationAPI.swift */; };
 		79519B7F267D61C900022964 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B7E267D61C900022964 /* NetworkManager.swift */; };
 		79519B81267D628900022964 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B80267D628900022964 /* JSONManager.swift */; };
 		79519B83267D66B200022964 /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B82267D66B200022964 /* Info.swift */; };
@@ -64,12 +60,6 @@
 		79519BB2267FE27400022964 /* CharacterRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BB1267FE27400022964 /* CharacterRepositoryTests.swift */; };
 		79519BBC267FE2C900022964 /* EpisodeRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BBB267FE2C900022964 /* EpisodeRepositoryTests.swift */; };
 		79519BBE267FE2D300022964 /* LocationRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BBD267FE2D300022964 /* LocationRepositoryTests.swift */; };
-		79519BBF267FF0A600022964 /* CharacterRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B6D267D5F2700022964 /* CharacterRepository.swift */; };
-		79519BC0267FF0A900022964 /* EpisodeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B6F267D5F2F00022964 /* EpisodeRepository.swift */; };
-		79519BC1267FF0AC00022964 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B71267D5F3600022964 /* LocationRepository.swift */; };
-		79519BC2267FF0BE00022964 /* CharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5E267D5BE400022964 /* CharacterAPI.swift */; };
-		79519BC3267FF0C000022964 /* LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B73267D5F9200022964 /* LocationAPI.swift */; };
-		79519BC4267FF0C300022964 /* EpisodeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B75267D5FAF00022964 /* EpisodeAPI.swift */; };
 		79519BC6267FF0D200022964 /* MockCharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BC5267FF0D200022964 /* MockCharacterAPI.swift */; };
 		79519BC8267FF0E500022964 /* MockEpisodeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BC7267FF0E500022964 /* MockEpisodeAPI.swift */; };
 		79519BCA267FF0F500022964 /* MockLocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519BC9267FF0F500022964 /* MockLocationAPI.swift */; };
@@ -80,9 +70,7 @@
 		79519BCF267FF14600022964 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B63267D5C6600022964 /* Episode.swift */; };
 		79519BD0267FF14900022964 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B65267D5C7200022964 /* Location.swift */; };
 		79519BD1267FF17E00022964 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B68267D5E5000022964 /* APIError.swift */; };
-		79519BD2267FF41000022964 /* AppCharacterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5C267D5BDA00022964 /* AppCharacterAPI.swift */; };
-		79519BD3267FF41300022964 /* AppEpisodeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B77267D604800022964 /* AppEpisodeAPI.swift */; };
-		79519BD4267FF41500022964 /* AppLocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B79267D606000022964 /* AppLocationAPI.swift */; };
+		79519BD2267FF41000022964 /* AppAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B5C267D5BDA00022964 /* AppAPI.swift */; };
 		79519BD5267FF42F00022964 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B7E267D61C900022964 /* NetworkManager.swift */; };
 		79519BD6267FF5B400022964 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79519B80267D628900022964 /* JSONManager.swift */; };
 		79519BE1268000F600022964 /* episode.json in Resources */ = {isa = PBXBuildFile; fileRef = 79519BDB268000F600022964 /* episode.json */; };
@@ -104,6 +92,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		792B631D26813CBE000DBD33 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		792B631F26813D58000DBD33 /* FetchableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchableItem.swift; sourceTree = "<group>"; };
+		792B632126813E24000DBD33 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
+		792B632326813F5F000DBD33 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		793F271E267E44E60095E7A7 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		793F2722267E45650095E7A7 /* EpisodeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListViewController.swift; sourceTree = "<group>"; };
 		793F2726267E45910095E7A7 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
@@ -132,19 +124,11 @@
 		79519B4F267D5A6C00022964 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79519B52267D5A6C00022964 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		79519B54267D5A6C00022964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		79519B5C267D5BDA00022964 /* AppCharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCharacterAPI.swift; sourceTree = "<group>"; };
-		79519B5E267D5BE400022964 /* CharacterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterAPI.swift; sourceTree = "<group>"; };
+		79519B5C267D5BDA00022964 /* AppAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppAPI.swift; sourceTree = "<group>"; };
 		79519B61267D5C5D00022964 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		79519B63267D5C6600022964 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		79519B65267D5C7200022964 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		79519B68267D5E5000022964 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		79519B6D267D5F2700022964 /* CharacterRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterRepository.swift; sourceTree = "<group>"; };
-		79519B6F267D5F2F00022964 /* EpisodeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeRepository.swift; sourceTree = "<group>"; };
-		79519B71267D5F3600022964 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
-		79519B73267D5F9200022964 /* LocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAPI.swift; sourceTree = "<group>"; };
-		79519B75267D5FAF00022964 /* EpisodeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeAPI.swift; sourceTree = "<group>"; };
-		79519B77267D604800022964 /* AppEpisodeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEpisodeAPI.swift; sourceTree = "<group>"; };
-		79519B79267D606000022964 /* AppLocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLocationAPI.swift; sourceTree = "<group>"; };
 		79519B7E267D61C900022964 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		79519B80267D628900022964 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		79519B82267D66B200022964 /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
@@ -320,9 +304,7 @@
 		79519B5A267D5A7A00022964 /* APIs */ = {
 			isa = PBXGroup;
 			children = (
-				79519B5C267D5BDA00022964 /* AppCharacterAPI.swift */,
-				79519B77267D604800022964 /* AppEpisodeAPI.swift */,
-				79519B79267D606000022964 /* AppLocationAPI.swift */,
+				79519B5C267D5BDA00022964 /* AppAPI.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -330,9 +312,9 @@
 		79519B5B267D5B8F00022964 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				79519B5E267D5BE400022964 /* CharacterAPI.swift */,
-				79519B73267D5F9200022964 /* LocationAPI.swift */,
-				79519B75267D5FAF00022964 /* EpisodeAPI.swift */,
+				792B632326813F5F000DBD33 /* API.swift */,
+				792B631F26813D58000DBD33 /* FetchableItem.swift */,
+				792B632126813E24000DBD33 /* Filter.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -363,9 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				79519BA1267FCA2200022964 /* Repositories.swift */,
-				79519B6D267D5F2700022964 /* CharacterRepository.swift */,
-				79519B6F267D5F2F00022964 /* EpisodeRepository.swift */,
-				79519B71267D5F3600022964 /* LocationRepository.swift */,
+				792B631D26813CBE000DBD33 /* Repository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -606,6 +586,7 @@
 				79519B7F267D61C900022964 /* NetworkManager.swift in Sources */,
 				794B9CEA26812D4100612628 /* LocationFilterView.swift in Sources */,
 				794B9CE626812CB000612628 /* LocationFilter.swift in Sources */,
+				792B631E26813CBE000DBD33 /* Repository.swift in Sources */,
 				793F271F267E44E60095E7A7 /* RootTabBarController.swift in Sources */,
 				79519B81267D628900022964 /* JSONManager.swift in Sources */,
 				7947E644267E71950019F6A2 /* CharacterViewController.swift in Sources */,
@@ -616,38 +597,33 @@
 				794B9CDA2681274100612628 /* CharacterFilter.swift in Sources */,
 				79519BAA267FDF3600022964 /* FetchType.swift in Sources */,
 				79519B4B267D5A6B00022964 /* CharacterListViewController.swift in Sources */,
-				79519B78267D604800022964 /* AppEpisodeAPI.swift in Sources */,
-				79519B5F267D5BE400022964 /* CharacterAPI.swift in Sources */,
 				794B9CE826812D3A00612628 /* EpisodeFilterView.swift in Sources */,
 				79519B8E267D76EC00022964 /* CharacterCell.swift in Sources */,
 				794B9CDC2681299900612628 /* CharacterFilterView.swift in Sources */,
 				79519B8A267D766800022964 /* CollectionViewHelper.swift in Sources */,
 				79519B91267D779200022964 /* UIView+Ext.swift in Sources */,
 				7947E64B267E8CB70019F6A2 /* CardView.swift in Sources */,
-				79519B74267D5F9200022964 /* LocationAPI.swift in Sources */,
 				79519BA8267FDBE300022964 /* AlertTitles.swift in Sources */,
-				79519B72267D5F3600022964 /* LocationRepository.swift in Sources */,
+				792B632226813E24000DBD33 /* Filter.swift in Sources */,
 				79519B66267D5C7200022964 /* Location.swift in Sources */,
 				7947E647267E77E50019F6A2 /* DetailView.swift in Sources */,
 				7947E64D267E94CE0019F6A2 /* DetailButtonView.swift in Sources */,
 				79519B64267D5C6600022964 /* Episode.swift in Sources */,
-				79519B7A267D606000022964 /* AppLocationAPI.swift in Sources */,
 				79519BA2267FCA2200022964 /* Repositories.swift in Sources */,
 				7947E655267EBC3D0019F6A2 /* EpisodeViewController.swift in Sources */,
-				79519B6E267D5F2700022964 /* CharacterRepository.swift in Sources */,
+				792B632026813D58000DBD33 /* FetchableItem.swift in Sources */,
 				7947E650267E997C0019F6A2 /* OpenButton.swift in Sources */,
-				79519B5D267D5BDA00022964 /* AppCharacterAPI.swift in Sources */,
+				79519B5D267D5BDA00022964 /* AppAPI.swift in Sources */,
 				79519B94267D783800022964 /* CharacterImageView.swift in Sources */,
 				79519B83267D66B200022964 /* Info.swift in Sources */,
-				79519B70267D5F2F00022964 /* EpisodeRepository.swift in Sources */,
 				7947E642267E6FED0019F6A2 /* LocationCell.swift in Sources */,
 				79519B62267D5C5D00022964 /* Character.swift in Sources */,
 				793F2723267E45650095E7A7 /* EpisodeListViewController.swift in Sources */,
 				79519B47267D5A6B00022964 /* AppDelegate.swift in Sources */,
+				792B632426813F5F000DBD33 /* API.swift in Sources */,
 				79519BA4267FCE0100022964 /* ErrorModel.swift in Sources */,
 				79519BA6267FD86F00022964 /* UIViewController+Ext.swift in Sources */,
 				7947E657267EC01D0019F6A2 /* LocationViewController.swift in Sources */,
-				79519B76267D5FAF00022964 /* EpisodeAPI.swift in Sources */,
 				793F2727267E45910095E7A7 /* LocationListViewController.swift in Sources */,
 				794B9CE026812B3900612628 /* FormField.swift in Sources */,
 				79519B85267D66EE00022964 /* PaginatedResponse.swift in Sources */,
@@ -664,26 +640,18 @@
 				79519BD5267FF42F00022964 /* NetworkManager.swift in Sources */,
 				79519BD6267FF5B400022964 /* JSONManager.swift in Sources */,
 				79519BCD267FF14200022964 /* ErrorModel.swift in Sources */,
-				79519BC4267FF0C300022964 /* EpisodeAPI.swift in Sources */,
 				79519BC8267FF0E500022964 /* MockEpisodeAPI.swift in Sources */,
-				79519BD3267FF41300022964 /* AppEpisodeAPI.swift in Sources */,
-				79519BC2267FF0BE00022964 /* CharacterAPI.swift in Sources */,
 				79519BD0267FF14900022964 /* Location.swift in Sources */,
 				79519BC6267FF0D200022964 /* MockCharacterAPI.swift in Sources */,
-				79519BC1267FF0AC00022964 /* LocationRepository.swift in Sources */,
 				79519BB2267FE27400022964 /* CharacterRepositoryTests.swift in Sources */,
-				79519BD2267FF41000022964 /* AppCharacterAPI.swift in Sources */,
+				79519BD2267FF41000022964 /* AppAPI.swift in Sources */,
 				79519BD1267FF17E00022964 /* APIError.swift in Sources */,
-				79519BD4267FF41500022964 /* AppLocationAPI.swift in Sources */,
 				79519BCE267FF14400022964 /* Character.swift in Sources */,
-				79519BBF267FF0A600022964 /* CharacterRepository.swift in Sources */,
 				79519BBE267FE2D300022964 /* LocationRepositoryTests.swift in Sources */,
 				79519BBC267FE2C900022964 /* EpisodeRepositoryTests.swift in Sources */,
 				79519BCA267FF0F500022964 /* MockLocationAPI.swift in Sources */,
-				79519BC0267FF0A900022964 /* EpisodeRepository.swift in Sources */,
 				79519BCF267FF14600022964 /* Episode.swift in Sources */,
 				79519BCB267FF13D00022964 /* PaginatedResponse.swift in Sources */,
-				79519BC3267FF0C000022964 /* LocationAPI.swift in Sources */,
 				79519BCC267FF13F00022964 /* Info.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

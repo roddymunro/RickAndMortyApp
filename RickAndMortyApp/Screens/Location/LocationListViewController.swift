@@ -56,7 +56,7 @@ class LocationListViewController: UIViewController {
     }
     
     private func fetchData(fetchType: FetchType) {
-        let fetchMethod = fetchType == .nextPage ? repositories.location.fetchLocations : repositories.location.refresh
+        let fetchMethod = fetchType == .nextPage ? repositories.location.fetchNextPage : repositories.location.refresh
         
         fetchMethod { result in
             switch result {
@@ -75,14 +75,16 @@ class LocationListViewController: UIViewController {
     }
     
     @objc private func searchTapped() {
-        let searchViewController = UIHostingController(
-            rootView: LocationFilterView(filter: repositories.location.filter, onTrailingButtonTap: {
-                self.dismiss(animated: true, completion: {
-                    self.fetchData(fetchType: .refresh)
-                })
-            }))
-        
-        present(searchViewController, animated: true)
+        if let filter = repositories.location.filter as? LocationFilter {
+            let searchViewController = UIHostingController(
+                rootView: LocationFilterView(filter: filter, onTrailingButtonTap: {
+                    self.dismiss(animated: true, completion: {
+                        self.fetchData(fetchType: .refresh)
+                    })
+                }))
+            
+            present(searchViewController, animated: true)
+        }
     }
 }
 

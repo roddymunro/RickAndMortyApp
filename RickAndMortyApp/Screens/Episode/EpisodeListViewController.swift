@@ -56,7 +56,7 @@ class EpisodeListViewController: UIViewController {
     }
     
     private func fetchData(fetchType: FetchType) {
-        let fetchMethod = fetchType == .nextPage ? repositories.episode.fetchEpisodes : repositories.episode.refresh
+        let fetchMethod = fetchType == .nextPage ? repositories.episode.fetchNextPage : repositories.episode.refresh
         
         fetchMethod { result in
             switch result {
@@ -75,14 +75,16 @@ class EpisodeListViewController: UIViewController {
     }
     
     @objc private func searchTapped() {
-        let searchViewController = UIHostingController(
-            rootView: EpisodeFilterView(filter: repositories.episode.filter, onTrailingButtonTap: {
-                self.dismiss(animated: true, completion: {
-                    self.fetchData(fetchType: .refresh)
-                })
-            }))
-        
-        present(searchViewController, animated: true)
+        if let filter = repositories.episode.filter as? EpisodeFilter {
+            let searchViewController = UIHostingController(
+                rootView: EpisodeFilterView(filter: filter, onTrailingButtonTap: {
+                    self.dismiss(animated: true, completion: {
+                        self.fetchData(fetchType: .refresh)
+                    })
+                }))
+            
+            present(searchViewController, animated: true)
+        }
     }
 }
 

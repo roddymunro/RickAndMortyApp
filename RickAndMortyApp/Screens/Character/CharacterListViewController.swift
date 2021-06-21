@@ -76,7 +76,7 @@ class CharacterListViewController: UIViewController {
     }
     
     private func fetchData(fetchType: FetchType) {
-        let fetchMethod = fetchType == .nextPage ? repositories.character.fetchCharacters : repositories.character.refresh
+        let fetchMethod = fetchType == .nextPage ? repositories.character.fetchNextPage : repositories.character.refresh
         
         fetchMethod { result in
             switch result {
@@ -89,14 +89,16 @@ class CharacterListViewController: UIViewController {
     }
     
     @objc private func searchTapped() {
-        let searchViewController = UIHostingController(
-            rootView: CharacterFilterView(filter: repositories.character.filter, onTrailingButtonTap: {
-                self.dismiss(animated: true, completion: {
-                    self.fetchData(fetchType: .refresh)
-                })
-            }))
-        
-        present(searchViewController, animated: true)
+        if let filter = repositories.character.filter as? CharacterFilter {
+            let searchViewController = UIHostingController(
+                rootView: CharacterFilterView(filter: filter, onTrailingButtonTap: {
+                    self.dismiss(animated: true, completion: {
+                        self.fetchData(fetchType: .refresh)
+                    })
+                }))
+            
+            present(searchViewController, animated: true)
+        }
     }
 }
 

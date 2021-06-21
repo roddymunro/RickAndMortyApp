@@ -9,13 +9,13 @@ import Foundation
 
 final class Repositories {
     
-    private(set) var character: CharacterRepository
-    private(set) var episode: EpisodeRepository
-    private(set) var location: LocationRepository
+    private(set) var character: Repository<Character>
+    private(set) var episode: Repository<Episode>
+    private(set) var location: Repository<Location>
     
     init() {
-        self.character = CharacterRepository()
-        self.episode = EpisodeRepository()
-        self.location = LocationRepository()
+        self.character = .init(api: AppAPI(endpoint: "character"), filter: CharacterFilter())
+        self.episode = .init(api: AppAPI(endpoint: "episode"), filter: EpisodeFilter())
+        self.location = .init(api: AppAPI(endpoint: "location"), filter: LocationFilter())
     }
 }

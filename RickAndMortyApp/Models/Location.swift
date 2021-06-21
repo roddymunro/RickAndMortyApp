@@ -7,18 +7,16 @@
 
 import Foundation
 
-struct Location: Codable, Identifiable {
+struct Location: FetchableItem {
     
-    let id: Int
-    let name: String
+    var id: Int
+    var name: String
     let type: String
     let dimension: String
     let residents: [String]
-    let url: String
-    let created: String
-}
+    var url: String
+    var created: String
 
-extension Location: Hashable {
     static func == (lhs: Location, rhs: Location) -> Bool {
         lhs.id == rhs.id
     }

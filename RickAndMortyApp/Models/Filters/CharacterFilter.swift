@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class CharacterFilter: ObservableObject {
+final class CharacterFilter: ObservableObject, Filter {
     
     @Published var name: String = ""
     @Published var status: String = ""
