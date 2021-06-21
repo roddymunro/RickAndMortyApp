@@ -15,6 +15,8 @@ final class EpisodeRepository {
     private(set) var data: [Episode] = []
     private(set) var nextPage: Int = 1
     
+    private(set) var filter = EpisodeFilter()
+    
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
             return nextPage <= pageCount
@@ -30,26 +32,17 @@ final class EpisodeRepository {
     
     public func fetchEpisodes(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
-            api.getEpisodes(page: nextPage) { result in
-                switch result {
-                    case .success(let data):
-                        do {
-                            let response: PaginatedResponse<Episode> = try JSONManager.shared.decode(data: data)
-                            self.paginationInfo = response.info
-                            response.results.forEach { episode in
-                                if !self.data.contains(episode) {
-                                    self.data.append(episode)
-                                }
-                            }
-                            self.data.sort(by: { $0.id < $1.id })
-                            self.nextPage += 1
-                            completion(.success("Success"))
-                        } catch {
-                            completion(.failure(error))
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(.failure(error))
+            if filter.isActive {
+                api.filterEpisodes(by: filter.filterString, page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
+                }
+            } else {
+                api.getEpisodes(page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
                 }
             }
         } else {
@@ -77,6 +70,29 @@ final class EpisodeRepository {
                         completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    private func handleFetchResult(_ result: Result<Data, Error>, _ completion: @escaping (Result<String, Error>) -> Void) {
+        switch result {
+            case .success(let data):
+                do {
+                    let response: PaginatedResponse<Episode> = try JSONManager.shared.decode(data: data)
+                    self.paginationInfo = response.info
+                    response.results.forEach { episode in
+                        if !self.data.contains(episode) {
+                            self.data.append(episode)
+                        }
+                    }
+                    self.data.sort(by: { $0.id < $1.id })
+                    self.nextPage += 1
+                    completion(.success("Success"))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
         }
     }
     

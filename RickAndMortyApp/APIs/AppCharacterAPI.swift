@@ -19,4 +19,10 @@ final class AppCharacterAPI: CharacterAPI {
             completion(result)
         }
     }
+    
+    func filterCharacters(by filterString: String, page: Int, _ completion: @escaping (Result<Data, Error>) -> Void) {
+        NetworkManager.shared.getDataFrom(endpoint: "character/?page=\(page)&\(filterString)") { result in
+            completion(result)
+        }
+    }
 }

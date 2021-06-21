@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class EpisodeListViewController: UIViewController {
     
@@ -33,6 +34,7 @@ class EpisodeListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchTapped))
     }
 
     private func configureTableView() {
@@ -70,6 +72,17 @@ class EpisodeListViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc private func searchTapped() {
+        let searchViewController = UIHostingController(
+            rootView: EpisodeFilterView(filter: repositories.episode.filter, onTrailingButtonTap: {
+                self.dismiss(animated: true, completion: {
+                    self.fetchData(fetchType: .refresh)
+                })
+            }))
+        
+        present(searchViewController, animated: true)
     }
 }
 

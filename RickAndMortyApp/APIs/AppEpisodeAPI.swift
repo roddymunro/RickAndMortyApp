@@ -19,4 +19,10 @@ final class AppEpisodeAPI: EpisodeAPI {
             completion(result)
         }
     }
+    
+    func filterEpisodes(by filterString: String, page: Int, _ completion: @escaping (Result<Data, Error>) -> Void) {
+        NetworkManager.shared.getDataFrom(endpoint: "episode/?page=\(page)&\(filterString)") { result in
+            completion(result)
+        }
+    }
 }

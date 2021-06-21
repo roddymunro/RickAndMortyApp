@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class LocationListViewController: UIViewController {
     
@@ -33,6 +34,7 @@ class LocationListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchTapped))
     }
 
     private func configureTableView() {
@@ -70,6 +72,17 @@ class LocationListViewController: UIViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc private func searchTapped() {
+        let searchViewController = UIHostingController(
+            rootView: LocationFilterView(filter: repositories.location.filter, onTrailingButtonTap: {
+                self.dismiss(animated: true, completion: {
+                    self.fetchData(fetchType: .refresh)
+                })
+            }))
+        
+        present(searchViewController, animated: true)
     }
 }
 

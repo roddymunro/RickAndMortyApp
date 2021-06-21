@@ -15,6 +15,8 @@ final class CharacterRepository {
     private(set) var data: [Character] = []
     private(set) var nextPage: Int = 1
     
+    private(set) var filter = CharacterFilter()
+    
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
             return nextPage <= pageCount
@@ -30,26 +32,17 @@ final class CharacterRepository {
     
     public func fetchCharacters(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
-            api.getCharacters(page: nextPage) { result in
-                switch result {
-                    case .success(let data):
-                        do {
-                            let response: PaginatedResponse<Character> = try JSONManager.shared.decode(data: data)
-                            self.paginationInfo = response.info
-                            response.results.forEach { character in
-                                if !self.data.contains(character) {
-                                    self.data.append(character)
-                                }
-                            }
-                            self.data.sort(by: { $0.id < $1.id })
-                            self.nextPage += 1
-                            completion(.success("Success"))
-                        } catch {
-                            completion(.failure(error))
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(.failure(error))
+            if filter.isActive {
+                api.filterCharacters(by: filter.filterString, page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
+                }
+            } else {
+                api.getCharacters(page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
                 }
             }
         } else {
@@ -69,7 +62,6 @@ final class CharacterRepository {
                             self.data.append(character)
                             self.data.sort(by: { $0.id < $1.id })
                             completion(.success(character))
-                            completion(.success(character))
                         } catch {
                             completion(.failure(error))
                         }
@@ -78,6 +70,29 @@ final class CharacterRepository {
                         completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    private func handleFetchResult(_ result: Result<Data, Error>, _ completion: @escaping (Result<String, Error>) -> Void) {
+        switch result {
+            case .success(let data):
+                do {
+                    let response: PaginatedResponse<Character> = try JSONManager.shared.decode(data: data)
+                    self.paginationInfo = response.info
+                    response.results.forEach { character in
+                        if !self.data.contains(character) {
+                            self.data.append(character)
+                        }
+                    }
+                    self.data.sort(by: { $0.id < $1.id })
+                    self.nextPage += 1
+                    completion(.success("Success"))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
         }
     }
     

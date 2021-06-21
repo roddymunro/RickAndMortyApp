@@ -20,4 +20,10 @@ final class AppLocationAPI: LocationAPI {
         }
     }
     
+    func filterLocations(by filterString: String, page: Int, _ completion: @escaping (Result<Data, Error>) -> Void) {
+        NetworkManager.shared.getDataFrom(endpoint: "location/?page=\(page)&\(filterString)") { result in
+            completion(result)
+        }
+    }
+    
 }

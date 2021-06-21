@@ -15,6 +15,8 @@ final class LocationRepository {
     private(set) var data: [Location] = []
     private(set) var nextPage: Int = 1
     
+    private(set) var filter = LocationFilter()
+    
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
             return nextPage <= pageCount
@@ -30,26 +32,17 @@ final class LocationRepository {
     
     public func fetchLocations(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
-            api.getLocations(page: nextPage) { result in
-                switch result {
-                    case .success(let data):
-                        do {
-                            let response: PaginatedResponse<Location> = try JSONManager.shared.decode(data: data)
-                            self.paginationInfo = response.info
-                            response.results.forEach { location in
-                                if !self.data.contains(location) {
-                                    self.data.append(location)
-                                }
-                            }
-                            self.data.sort(by: { $0.id < $1.id })
-                            self.nextPage += 1
-                            completion(.success("Success"))
-                        } catch {
-                            completion(.failure(error))
-                        }
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        completion(.failure(error))
+            if filter.isActive {
+                api.filterLocations(by: filter.filterString, page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
+                }
+            } else {
+                api.getLocations(page: nextPage) { result in
+                    self.handleFetchResult(result) { result in
+                        completion(result)
+                    }
                 }
             }
         } else {
@@ -77,6 +70,29 @@ final class LocationRepository {
                         completion(.failure(error))
                 }
             }
+        }
+    }
+    
+    private func handleFetchResult(_ result: Result<Data, Error>, _ completion: @escaping (Result<String, Error>) -> Void) {
+        switch result {
+            case .success(let data):
+                do {
+                    let response: PaginatedResponse<Location> = try JSONManager.shared.decode(data: data)
+                    self.paginationInfo = response.info
+                    response.results.forEach { location in
+                        if !self.data.contains(location) {
+                            self.data.append(location)
+                        }
+                    }
+                    self.data.sort(by: { $0.id < $1.id })
+                    self.nextPage += 1
+                    completion(.success("Success"))
+                } catch {
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(error))
         }
     }
     

@@ -11,5 +11,6 @@ protocol LocationAPI {
     
     func getLocations(page: Int, _ completion: @escaping (Result<Data, Error>) -> Void)
     func getLocation(using urlString: String, _ completion: @escaping (Result<Data, Error>) -> Void)
+    func filterLocations(by filterString: String, page: Int, _ completion: @escaping (Result<Data, Error>) -> Void)
     
 }

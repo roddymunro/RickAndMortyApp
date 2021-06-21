@@ -11,5 +11,6 @@ protocol CharacterAPI {
     
     func getCharacters(page: Int, _ completion: @escaping (Result<Data, Error>) -> Void)
     func getCharacter(using urlString: String, _ completion: @escaping (Result<Data, Error>) -> Void)
+    func filterCharacters(by filterString: String, page: Int, _ completion: @escaping (Result<Data, Error>) -> Void)
     
 }

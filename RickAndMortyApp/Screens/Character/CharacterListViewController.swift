@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class CharacterListViewController: UIViewController {
 
@@ -37,6 +38,7 @@ class CharacterListViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchTapped))
     }
 
     private func configureCollectionView() {
@@ -84,6 +86,17 @@ class CharacterListViewController: UIViewController {
                     self.presentErrorAlert(error: .init(title: AlertTitles.couldntFetchCharacters, error: error))
             }
         }
+    }
+    
+    @objc private func searchTapped() {
+        let searchViewController = UIHostingController(
+            rootView: CharacterFilterView(filter: repositories.character.filter, onTrailingButtonTap: {
+                self.dismiss(animated: true, completion: {
+                    self.fetchData(fetchType: .refresh)
+                })
+            }))
+        
+        present(searchViewController, animated: true)
     }
 }
 
