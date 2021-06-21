@@ -10,9 +10,10 @@ import UIKit
 enum CollectionViewHelper {
     
     static func createCharacterCollectionViewFlowLayout(in view: UIView) -> UICollectionViewFlowLayout {
-        let padding: CGFloat = 12
-        let availableWidth = view.bounds.width - (padding * 4)
-        let itemWidth = availableWidth / 3
+        let numberOfItemsPerRow: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 5 : 3
+        let padding: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 16 : 12
+        let availableWidth = view.bounds.width - (padding * (numberOfItemsPerRow + 1))
+        let itemWidth = availableWidth / numberOfItemsPerRow
         
         let flowlayout = UICollectionViewFlowLayout()
         

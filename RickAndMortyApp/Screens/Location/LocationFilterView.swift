@@ -32,7 +32,7 @@ struct LocationFilterView: View {
                 .navigationTitle("Filter Locations")
                 .navigationBarItems(leading: leadingBarItems, trailing: trailingBarItems)
                 .navigationBarTitleDisplayMode(.inline)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     var content: some View {

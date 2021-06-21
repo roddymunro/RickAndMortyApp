@@ -32,7 +32,7 @@ struct EpisodeFilterView: View {
                 .navigationTitle("Filter Episodes")
                 .navigationBarItems(leading: leadingBarItems, trailing: trailingBarItems)
                 .navigationBarTitleDisplayMode(.inline)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     var content: some View {

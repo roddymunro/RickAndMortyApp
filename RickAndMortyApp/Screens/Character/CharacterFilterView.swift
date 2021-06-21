@@ -32,7 +32,7 @@ struct CharacterFilterView: View {
                 .navigationTitle("Filter Characters")
                 .navigationBarItems(leading: leadingBarItems, trailing: trailingBarItems)
                 .navigationBarTitleDisplayMode(.inline)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     var content: some View {
