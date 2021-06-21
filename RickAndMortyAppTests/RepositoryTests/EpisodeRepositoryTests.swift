@@ -18,9 +18,9 @@ class EpisodeRepositoryTests: XCTestCase {
     }
 
     func testFetchEpisodesFirstPage() throws {
-        let repository = EpisodeRepository(api: MockEpisodeAPI())
+        let repository = Repository<Episode>(api: MockAPI(endpoint: "episodes"), filter: EpisodeFilter())
         
-        repository.fetchEpisodes { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTAssert(repository.data.count == 20)
@@ -33,9 +33,9 @@ class EpisodeRepositoryTests: XCTestCase {
     }
     
     func testFetchEpisodesInvalidPage() throws {
-        let repository = EpisodeRepository(api: MockEpisodeAPI(), nextPage: -1)
+        let repository = Repository<Episode>(api: MockAPI(endpoint: "episodes"), filter: EpisodeFilter(), nextPage: -1)
         
-        repository.fetchEpisodes { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid page")
@@ -47,10 +47,10 @@ class EpisodeRepositoryTests: XCTestCase {
     }
     
     func testFetchEpisodeSuccess() throws {
-        let repository = EpisodeRepository(api: MockEpisodeAPI())
+        let repository = Repository<Episode>(api: MockAPI(endpoint: "episode"), filter: EpisodeFilter())
         let episodeUrl = "https://rickandmortyapi.com/api/episode/1"
         
-        repository.fetchEpisode(by: episodeUrl) { result in
+        repository.fetch(by: episodeUrl) { result in
             switch result {
                 case .success(let episode):
                     XCTAssert(episode.url == episodeUrl)
@@ -62,10 +62,10 @@ class EpisodeRepositoryTests: XCTestCase {
     }
     
     func testFetchEpisodesInvalidUrl() throws {
-        let repository = EpisodeRepository(api: MockEpisodeAPI())
+        let repository = Repository<Episode>(api: MockAPI(endpoint: "episode"), filter: EpisodeFilter())
         let episodeUrl = "BADURL*()#42"
         
-        repository.fetchEpisode(by: episodeUrl) { result in
+        repository.fetch(by: episodeUrl) { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid url")

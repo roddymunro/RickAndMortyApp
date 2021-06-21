@@ -18,9 +18,9 @@ class CharacterRepositoryTests: XCTestCase {
     }
 
     func testFetchCharactersFirstPage() throws {
-        let repository = CharacterRepository(api: MockCharacterAPI())
+        let repository = Repository<Character>(api: MockAPI(endpoint: "characters"), filter: CharacterFilter())
         
-        repository.fetchCharacters { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTAssert(repository.data.count == 20)
@@ -33,9 +33,9 @@ class CharacterRepositoryTests: XCTestCase {
     }
     
     func testFetchCharactersInvalidPage() throws {
-        let repository = CharacterRepository(api: MockCharacterAPI(), nextPage: -1)
+        let repository = Repository<Character>(api: MockAPI(endpoint: "characters"), filter: CharacterFilter(), nextPage: -1)
         
-        repository.fetchCharacters { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid page")
@@ -47,10 +47,10 @@ class CharacterRepositoryTests: XCTestCase {
     }
     
     func testFetchCharacterSuccess() throws {
-        let repository = CharacterRepository(api: MockCharacterAPI())
+        let repository = Repository<Character>(api: MockAPI(endpoint: "character"), filter: CharacterFilter())
         let characterUrl = "https://rickandmortyapi.com/api/character/1"
         
-        repository.fetchCharacter(by: characterUrl) { result in
+        repository.fetch(by: characterUrl) { result in
             switch result {
                 case .success(let character):
                     XCTAssert(character.url == characterUrl)
@@ -62,10 +62,10 @@ class CharacterRepositoryTests: XCTestCase {
     }
     
     func testFetchCharactersInvalidUrl() throws {
-        let repository = CharacterRepository(api: MockCharacterAPI())
+        let repository = Repository<Character>(api: MockAPI(endpoint: "character"), filter: CharacterFilter())
         let characterUrl = "BADURL*()#42"
         
-        repository.fetchCharacter(by: characterUrl) { result in
+        repository.fetch(by: characterUrl) { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid url")

@@ -18,9 +18,9 @@ class LocationRepositoryTests: XCTestCase {
     }
 
     func testFetchLocationsFirstPage() throws {
-        let repository = LocationRepository(api: MockLocationAPI())
+        let repository = Repository<Location>(api: MockAPI(endpoint: "locations"), filter: LocationFilter())
         
-        repository.fetchLocations { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTAssert(repository.data.count == 20)
@@ -33,9 +33,9 @@ class LocationRepositoryTests: XCTestCase {
     }
     
     func testFetchLocationsInvalidPage() throws {
-        let repository = LocationRepository(api: MockLocationAPI(), nextPage: -1)
+        let repository = Repository<Location>(api: MockAPI(endpoint: "locations"), filter: LocationFilter(), nextPage: -1)
         
-        repository.fetchLocations { result in
+        repository.fetchNextPage { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid page")
@@ -47,10 +47,10 @@ class LocationRepositoryTests: XCTestCase {
     }
     
     func testFetchLocationSuccess() throws {
-        let repository = LocationRepository(api: MockLocationAPI())
+        let repository = Repository<Location>(api: MockAPI(endpoint: "location"), filter: LocationFilter())
         let locationUrl = "https://rickandmortyapi.com/api/location/1"
         
-        repository.fetchLocation(by: locationUrl) { result in
+        repository.fetch(by: locationUrl) { result in
             switch result {
                 case .success(let location):
                     XCTAssert(location.url == locationUrl)
@@ -62,10 +62,10 @@ class LocationRepositoryTests: XCTestCase {
     }
     
     func testFetchLocationsInvalidUrl() throws {
-        let repository = LocationRepository(api: MockLocationAPI())
+        let repository = Repository<Location>(api: MockAPI(endpoint: "locations"), filter: LocationFilter())
         let locationUrl = "BADURL*()#42"
         
-        repository.fetchLocation(by: locationUrl) { result in
+        repository.fetch(by: locationUrl) { result in
             switch result {
                 case .success:
                     XCTFail("Unexpected success with invalid url")
