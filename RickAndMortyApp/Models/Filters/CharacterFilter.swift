@@ -15,10 +15,12 @@ final class CharacterFilter: ObservableObject, Filter {
     @Published var type: String = ""
     @Published var gender: String = ""
     
+    // Has a filter been set or not
     public var isActive: Bool {
         !name.isEmpty || !status.isEmpty || !species.isEmpty || !type.isEmpty || !gender.isEmpty
     }
     
+    // Generates the URL components required to apply a filter
     public var filterString: String {
         var filterComponents: [String] = []
         if !name.isEmpty {
@@ -45,6 +47,7 @@ final class CharacterFilter: ObservableObject, Filter {
     let statusOptions: [String] = ["alive", "dead", "unknown"]
     let genderOptions: [String] = ["female", "male", "genderless", "unknown"]
     
+    // Resets all filters
     public func reset() {
         self.name = ""
         self.status = ""

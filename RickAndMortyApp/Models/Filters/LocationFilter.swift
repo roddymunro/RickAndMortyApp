@@ -13,10 +13,12 @@ final class LocationFilter: ObservableObject, Filter {
     @Published var type: String = ""
     @Published var dimension: String = ""
     
+    // Has a filter been set or not
     public var isActive: Bool {
         !name.isEmpty || !type.isEmpty || !dimension.isEmpty
     }
     
+    // Generates the URL components required to apply a filter
     public var filterString: String {
         var filterComponents: [String] = []
         if !name.isEmpty {
@@ -34,6 +36,7 @@ final class LocationFilter: ObservableObject, Filter {
     
     init() {}
     
+    // Resets all filters
     public func reset() {
         self.name = ""
         self.type = ""

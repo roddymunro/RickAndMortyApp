@@ -17,6 +17,7 @@ final class Repository<T: FetchableItem> {
     
     private(set) var filter: Filter
     
+    // Is there another page to fetch or not
     public var nextPageAvailable: Bool {
         if let pageCount = paginationInfo?.pages {
             return nextPage <= pageCount
@@ -31,6 +32,7 @@ final class Repository<T: FetchableItem> {
         self.nextPage = nextPage
     }
     
+    // Fetches the next page of results, whether a filter is applied or not
     public func fetchNextPage(_ completion: @escaping (Result<String, Error>) -> Void) {
         if nextPageAvailable {
             if filter.isActive {
@@ -51,6 +53,7 @@ final class Repository<T: FetchableItem> {
         }
     }
     
+    // Fetches a single item using the URL provided
     public func fetch(by urlString: String, _ completion: @escaping (Result<T, Error>) -> Void) {
         if let item = getByUrl(urlString: urlString) {
             completion(.success(item))
@@ -74,6 +77,7 @@ final class Repository<T: FetchableItem> {
         }
     }
     
+    // Method to handle fetching a paginated response, to reduce code repetition
     private func handleFetchResult(_ result: Result<Data, Error>, _ completion: @escaping (Result<String, Error>) -> Void) {
         switch result {
             case .success(let data):
@@ -97,6 +101,7 @@ final class Repository<T: FetchableItem> {
         }
     }
     
+    // Called when a user wants to refresh the contents of the screen they are on
     public func refresh(_ completion: @escaping (Result<String, Error>) -> Void) {
         nextPage = 1
         data.removeAll()
@@ -106,6 +111,7 @@ final class Repository<T: FetchableItem> {
         }
     }
     
+    // Gets an item from the data array using the URL provided
     private func getByUrl(urlString: String) -> T? {
         data.first { $0.url == urlString }
     }
