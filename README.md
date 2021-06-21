@@ -57,3 +57,4 @@ The app with Voiceover to ensure the app was accessible, and thanks to default U
 - I'd have looked for more cases where code duplication has occurred in order to improve maintenance
 - I would improve the Character/Episode/Location views so that appropriate names would be shown instead of the plain URL
 - I'd test the ViewControllers too to maximise code coverage
+- I'd add extra customization to the UI based on whether data was loading, if there was an error or if the data simply did not exist
